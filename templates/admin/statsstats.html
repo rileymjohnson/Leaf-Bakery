@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/chart.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/list.js"></script>
+   	</style>
+    <title>Admin Panel</title>
+    <style>
+        .download {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+<a class="btn-floating btn-large waves-effect waves-light red download" href="/admin/download"><i class="material-icons">file_download</i></a>
+    <div class="container">
+            <div id="users">
+                <div class="input-field">
+  <input class="search validate" placeholder="Search By Name" type="text" />
+
+                </div>
+        <table class="striped responsive-table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Monday</th>
+              <th>Tuesday</th>
+              <th>Wednesday</th>
+              <th>Thursday</th>
+              <th>Friday</th>
+              <th>Saturday</th>
+              <th>Sunday</th>
+          </tr>
+        </thead>
+
+        <tbody class="list">
+            {% for item in appetizers %}
+              <tr>
+                <td class="name">{{ item['name'] }}</td>
+                <td class="mon">{{ item['mon'] }}</td>
+                <td class="tue">{{ item['tue'] }}</td>
+                <td>{{ item['wed'] }}</td>
+                <td>{{ item['thu'] }}</td>
+                <td>{{ item['fri'] }}</td>
+                <td>{{ item['sat'] }}</td>
+                <td>{{ item['sun'] }}</td>
+              </tr>
+            {% endfor %}
+            {% for item in soups %}
+              <tr>
+                <td class="name">{{ item['name'] }}</td>
+                <td class="mon">{{ item['mon'] }}</td>
+                <td class="tue">{{ item['tue'] }}</td>
+                <td class="wed">{{ item['wed'] }}</td>
+                <td class="thu">{{ item['thu'] }}</td>
+                <td class="fri">{{ item['fri'] }}</td>
+                <td class="sat">{{ item['sat'] }}</td>
+                <td class="sun">{{ item['sun'] }}</td>
+              </tr>
+            {% endfor %}
+            {% for item in salads %}
+              <tr>
+                <td class="name">{{ item['name'] }}</td>
+                <td class="mon">{{ item['mon'] }}</td>
+                <td class="tue">{{ item['tue'] }}</td>
+                <td class="wed">{{ item['wed'] }}</td>
+                <td class="thu">{{ item['thu'] }}</td>
+                <td class="fri">{{ item['fri'] }}</td>
+                <td class="sat">{{ item['sat'] }}</td>
+                <td class="sun">{{ item['sun'] }}</td>
+              </tr>
+            {% endfor %}
+            {% for item in kids %}
+              <tr>
+                <td class="name">{{ item['name'] }}</td>
+                <td class="mon">{{ item['mon'] }}</td>
+                <td class="tue">{{ item['tue'] }}</td>
+                <td class="wed">{{ item['wed'] }}</td>
+                <td class="thu">{{ item['thu'] }}</td>
+                <td class="fri">{{ item['fri'] }}</td>
+                <td class="sat">{{ item['sat'] }}</td>
+                <td class="sun">{{ item['sun'] }}</td>
+              </tr>
+            {% endfor %}
+            {% for item in entrees %}
+              <tr>
+                <td class="name">{{ item['name'] }}</td>
+                <td class="mon">{{ item['mon'] }}</td>
+                <td class="tue">{{ item['tue'] }}</td>
+                <td>{{ item['wed'] }}</td>
+                <td>{{ item['thu'] }}</td>
+                <td>{{ item['fri'] }}</td>
+                <td>{{ item['sat'] }}</td>
+                <td>{{ item['sun'] }}</td>
+              </tr>
+            {% endfor %}
+            {% for item in breads %}
+              <tr>
+                <td class="name">{{ item['name'] }}</td>
+                <td class="mon">{{ item['mon'] }}</td>
+                <td class="tue">{{ item['tue'] }}</td>
+                <td class="wed">{{ item['wed'] }}</td>
+                <td class="thu">{{ item['thu'] }}</td>
+                <td class="fri">{{ item['fri'] }}</td>
+                <td class="sat">{{ item['sat'] }}</td>
+                <td class="sun">{{ item['sun'] }}</td>
+              </tr>
+            {% endfor %}
+            {% for item in drinks %}
+              <tr>
+                <td class="name">{{ item['name'] }}</td>
+                <td class="mon">{{ item['mon'] }}</td>
+                <td class="tue">{{ item['tue'] }}</td>
+                <td class="wed">{{ item['wed'] }}</td>
+                <td class="thu">{{ item['thu'] }}</td>
+                <td class="fri">{{ item['fri'] }}</td>
+                <td class="sat">{{ item['sat'] }}</td>
+                <td class="sun">{{ item['sun'] }}</td>
+              </tr>
+            {% endfor %}
+            {% for item in desserts %}
+              <tr>
+                <td class="name">{{ item['name'] }}</td>
+                <td class="mon">{{ item['mon'] }}</td>
+                <td class="tue">{{ item['tue'] }}</td>
+                <td class="wed">{{ item['wed'] }}</td>
+                <td class="thu">{{ item['thu'] }}</td>
+                <td class="fri">{{ item['fri'] }}</td>
+                <td class="sat">{{ item['sat'] }}</td>
+                <td class="sun">{{ item['sun'] }}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    </div>
+    <script>
+        var options = {
+          valueNames: [ 'name', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+        };
+
+        var userList = new List('users', options);
+    </script>
+    <script>
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+h2, li, h3 {
+    color: black;
+}
+.itemText {
+    width: 48%;
+    font-size: 18px;
+}
+.itemImg {
+    width: 50%;
+    float: right;
+    -moz-box-shadow:5px 5px 5px rgba(0,0,0,0.5);
+-webkit-box-shadow:5px 5px 5px rgba(0,0,0,0.5);
+box-shadow:5px 5px 5px rgba(0,0,0,0.5);
+}
+.orderForm {
+        width: 48%;
+    }
+@media screen and (max-width: 768px) {
+    .itemImg {
+        width: 100%;
+    }
+    .orderForm {
+        width: 100%;
+    }
+    #topCommentone {
+        margin-top: 20px;
+    }
+    .itemText {
+    width: 100%;
+}
+}

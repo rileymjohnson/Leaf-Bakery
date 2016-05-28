@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/js/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="../../static/js/highcharts/modules/exporting.js"></script>
+	<title>Admin Panel</title>
+</head>
+
+<body>
+	{% include "admin/adminnav.html" %}
+
+	<div class="container">
+		<h3 style="text-align: center">Orders Per Day</h3>
+		<!--<div id="line1" style="height: 200 width: 600"></div>-->
+		<div id="line1" height="200" width="600"></div>
+	</div>
+	<script type="text/javascript">
+		$(function () {
+		    $('#line1').highcharts({
+		        title: {
+		            text: null
+		        },
+		        credits: {
+		        	enabled: false
+		        },
+		        xAxis: {
+		            categories: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+		        },
+		        yAxis: {
+		            title: {
+		                text: 'Orders'
+		            },
+		            plotLines: [{
+		                value: 0,
+		                width: 1,
+		                color: '#808080'
+		            }]
+		        },
+		        legend: {
+		        	enabled: false
+		        },
+		        series: [{
+		            name: 'Orders',
+		            data: [{{ sun }}, {{ mon }}, {{ tue }}, {{ wed }}, {{ thu }}, {{ fri }}, {{ sat }}]
+		        }]
+		    });
+		});
+	</script>
+	<script type="text/javascript">
+		$(".button-collapse").sideNav();
+		$(".button-collapse").sideNav();
+		$(".dropdown-button").dropdown();
+	</script>
+</body>
+</html>

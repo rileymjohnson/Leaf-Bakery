@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/js/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="../../static/js/highcharts/modules/exporting.js"></script>
+    <script type="text/javascript" src="../../static/js/w3-include-HTML.js"></script>
+    <title>Admin Panel</title>
+        <style>
+            @media screen and (max-width: 992px) {
+                .topButton {
+                    width: 100%;
+                }
+            }
+            #area {
+            width: 140%;
+            margin-left: -20%;
+            margin-top: -20%;
+            margin-bottom: -20%;
+            position: relative;
+        }
+        #box {
+            height: calc(100% - 77px);
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        #text {
+            color: black;
+            position: relative;
+            top: 50%; 
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+            text-align: center;
+            font-size: 2vw;
+        }
+        @media screen and (max-width: 992px) {
+            #text {
+                font-size: 4vw;
+            }
+        }
+        @media screen and (max-width: 600px) {
+            #text {
+                font-size: 8vw;
+            }
+        }
+        </style>
+</head>
+<body>
+    <div w3-include-html="../../templates/admin/adminnav.html"></div>
+    <div id="linechart" style="min-width: 600px; height: 300px; margin: 0 auto"></div>
+
+
+    <!-- SCRIPTING -->
+    <script type="text/javascript">
+        $(function () {
+            $('#linechart').highcharts({
+                title: {
+                    text: 'Items Order Per Day Per Category',
+                    x: -20 //center
+                },
+                xAxis: {
+                    categories: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Number of Orders Placed'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
+                series: [{
+                    name: 'Appetizers',
+                    data: [{{ sun }}, {{ mon }}, {{ tue }}, {{ wed }}, {{ thu }}, {{ fri }}, {{ sat }}]
+                }, {
+                    name: 'Soups',
+                    data: [{{ sun }}, {{ mon }}, {{ tue }}, {{ wed }}, {{ thu }}, {{ fri }}, {{ sat }}]
+                }, {
+                    name: 'Salads',
+                    data: [{{ sun }}, {{ mon }}, {{ tue }}, {{ wed }}, {{ thu }}, {{ fri }}, {{ sat }}]
+                }, {
+                    name: 'Kid\'s Menu',
+                    data: [{{ sun }}, {{ mon }}, {{ tue }}, {{ wed }}, {{ thu }}, {{ fri }}, {{ sat }}]
+                }, {
+                    name: 'Entrees',
+                    data: [{{ sun }}, {{ mon }}, {{ tue }}, {{ wed }}, {{ thu }}, {{ fri }}, {{ sat }}]
+                }, {
+                    name: 'Breads',
+                    data: [{{ sun }}, {{ mon }}, {{ tue }}, {{ wed }}, {{ thu }}, {{ fri }}, {{ sat }}]
+                }, {
+                    name: 'Drinks',
+                    data: [{{ sun }}, {{ mon }}, {{ tue }}, {{ wed }}, {{ thu }}, {{ fri }}, {{ sat }}]
+                }, {
+                    name: 'Desserts',
+                    data: [{{ sun }}, {{ mon }}, {{ tue }}, {{ wed }}, {{ thu }}, {{ fri }}, {{ sat }}]
+                }]
+            });
+        });
+    </script>
+
+</body>
+</html>

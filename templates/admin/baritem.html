@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/js/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="../../static/js/highcharts/modules/exporting.js"></script>
+    <title>Admin Panel</title>
+</head>
+<body>
+    {% include "admin/adminnav.html" %}
+
+    <div class="container">
+        <h3 style="text-align: center">Total Items Ordered</h3>
+        <div id="bar1" height="290" width="600"></div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#bar1').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: [
+                        {% for name in names %}
+                        '{{ name }}'
+                        {% if not loop.last %}
+                        ,
+                        {% endif %}
+                        {% endfor %}
+                    ]
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Orders'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                    name: 'Orders',
+                    data: [{% for name in ar %}
+                            {{ name }}
+                            {% if not loop.last %}
+                            ,
+                            {% endif %}
+                            {% endfor %}]
+                }]
+            });
+        });
+    </script>
+
+</body>
+</html>

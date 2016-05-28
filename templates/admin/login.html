@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" href="../../static/admin/css/personal/login.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    <div class="row logContainer">
+    <div class="card-panel">
+      <form class="login-form">
+        <div class="row">
+          <div class="input-field col s12 center">
+            <p class="center login-form-text">Login</p>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-social-person-outline prefix"></i>
+            <input id="username" type="text">
+            <label for="username" class="center-align">Username</label>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-action-lock-outline prefix"></i>
+            <input id="password" type="password">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <a onclick="go()" class="btn waves-effect waves-light col s12" id="submit">Login</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+    <script>
+        $("#password").keyup(function(event){
+            if(event.keyCode == 13){
+                $("#submit").click();
+            }
+        });
+        function go() {
+            $.post("/admin", {name: $("#username").val(), pass: $("#password").val()}, function(data) {
+                if (data == "true") {
+                    window.location.href = "/admin/home"
+                } else {
+                    Materialize.toast("The username or password is incorrect", 3000) 
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

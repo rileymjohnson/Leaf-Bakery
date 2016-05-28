@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/css/colorbrewer.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/js/highcharts/highcharts.js"></script>
+    <title>Admin Panel</title>
+  </head>
+  <body>
+    {% include "admin/adminnav.html" %}
+
+    <div class="container">
+        <h3 style="text-align: center">Percent of Orders by Category and Item</h3>
+        <div id="donutchart"></div>
+    </div>
+
+    {% include "admin/dnutdta.html" %}
+
+    <script>
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+  </body>
+</html>

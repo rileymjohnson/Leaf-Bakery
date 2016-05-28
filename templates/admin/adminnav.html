@@ -1,0 +1,135 @@
+<!--[if IE]>
+	<style>
+	    #managementMenu {
+			width: 158px;
+		}
+		#restaurantMenu {
+			width: 143;
+		}
+		#manageMenu {
+			width: 124;
+		}
+        #menumanagemenu {
+            width: 200px;
+        }
+	</style>
+<![endif]-->
+<style>
+	@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+		#managementMenu {
+			width: 158px;
+		}
+		#restaurantMenu {
+			width: 143px;
+		}
+		#manageMenu {
+			width: 124px;
+		}			
+        #menumanagemenu {
+            width: 200px;
+        }
+	}
+</style>
+
+<ul id="managedropdown" class="dropdown-content">
+    <li><a href="/"><i class="material-icons left">home</i>Home</a>
+    </li>
+    <li><a href="/admin/logout"><i class="material-icons left">system_update_alt</i>Logout</a>
+    </li>
+</ul>
+<ul id="restdropdown" class="dropdown-content">
+    <li><a href="/admin/reservations">Reservations</a>
+    </li>
+    <li><a href="/admin/orders">Orders</a>
+    </li>
+</ul>
+<ul id="managementdropdown" class="dropdown-content">
+    <li><a href="/admin/hours"><i class="material-icons left">access_time</i>Hours</a>
+    </li>
+    <li><a href="/admin/passwords"><i class="material-icons left">lock</i>Passwords</a>
+    </li>
+    <li><a href="/admin/events"><i class="material-icons left">event</i>Events</a>
+    </li>
+    <li><a href="/admin/members"><i class="material-icons left">perm_identity</i>Members</a>
+    </li>
+</ul>
+<ul id="itemdropdown" class="dropdown-content">
+    <li><a href="/admin/item/add"><i class="material-icons left">add</i>Add</a>
+    </li>
+    <li><a href="/admin/item/remove"><i class="material-icons left">clear</i>Remove</a>
+    </li>
+    <li><a href="/admin/item/modify"><i class="material-icons left">create</i>Modify</a>
+    </li>
+</ul>
+
+<ul id="managedropdown1" class="dropdown-content">
+    <li><a href="/"><i class="material-icons left">home</i>Home</a>
+    </li>
+    <li><a href="/admin/logout"><i class="material-icons left">system_update_alt</i>Logout</a>
+    </li>
+</ul>
+<ul id="restdropdown1" class="dropdown-content">
+    <li><a href="/admin/reservations">Reservations</a>
+    </li>
+    <li><a href="/admin/orders">Orders</a>
+    </li>
+</ul>
+<ul id="managementdropdown1" class="dropdown-content">
+    <li><a href="/admin/hours"><i class="material-icons left">access_time</i>Hours</a>
+    </li>
+    <li><a href="/admin/passwords"><i class="material-icons left">lock</i>Passwords</a>
+    </li>
+    <li><a href="/admin/events"><i class="material-icons left">event</i>Events</a>
+    </li>
+    <li><a href="/admin/members"><i class="material-icons left">perm_identity</i>Members</a>
+    </li>
+</ul>
+<ul id="itemdropdown1" class="dropdown-content">
+    <li><a href="/admin/item/add"><i class="material-icons left">add</i>Add</a>
+    </li>
+    <li><a href="/admin/item/remove"><i class="material-icons left">clear</i>Remove</a>
+    </li>
+    <li><a href="/admin/item/modify"><i class="material-icons left">create</i>Modify</a>
+    </li>
+</ul>
+<ul id="menumanagedropdown" class="dropdown-content">
+    <li><a href="/admin/add"><i class="material-icons lefts">add</i>Add Item</a></li>
+    <li><a href="/admin/delete"><i class="material-icons left">clear</i>Remove</a>
+    </li>
+    <li><a href="/admin/modify"><i class="material-icons left">create</i>Modify</a>
+    </li>
+</ul>
+<ul id="menumanagedropdown1" class="dropdown-content">
+    <li><a href="/admin/add"><i class="material-icons lefts">add</i>Add Item</a></li>
+    <li><a href="/admin/delete"><i class="material-icons left">clear</i>Remove</a>
+    </li>
+    <li><a href="/admin/modify"><i class="material-icons left">create</i>Modify</a>
+    </li>
+</ul>
+
+    <nav class="teal">
+        <a href="/admin/home" class="brand-logo nav-icon-left">Admin Panel</a>
+        <ul class="right hide-on-med-and-down">
+            <li><a class="dropdown-button" id="managementMenu" href="#!" data-activates="managementdropdown">Management<i class="material-icons right drop-button">arrow_drop_down</i></a></li>
+
+            <li><a class="dropdown-button" id="menumanagemenu" href="#!" data-activates="menumanagedropdown">Menu Management<i class="material-icons right drop-button">arrow_drop_down</i></a></li>
+            
+            <li><a class="dropdown-button" id="restaurantMenu" href="#!" data-activates="restdropdown">Restaurant<i class="material-icons right drop-button">arrow_drop_down</i></a></li>
+
+            <li><a href="/admin/stats"><i class="material-icons left drop-button">equalizer</i>Statistics</a></li>
+
+            <li><a class="dropdown-button" id="manageMenu" href="#!" data-activates="managedropdown">Manage<i class="material-icons right drop-button">arrow_drop_down</i></a></li>
+        </ul>
+        <ul id="slide-out" class="side-nav">
+            <li><a class="dropdown-button" href="#!" data-activates="managementdropdown1">Management<i class="material-icons right drop-button">arrow_drop_down</i></a></li>
+
+            <li><a class="dropdown-button" href="#!" data-activates="menumanagedropdown1">Menu Management<i class="material-icons right drop-button">arrow_drop_down</i></a></li>
+
+            <li><a class="dropdown-button" href="#!" data-activates="restdropdown1">Restaurant<i class="material-icons right drop-button">arrow_drop_down</i></a></li>
+
+            <li><a href="/admin/stats"><i class="material-icons left drop-button">equalizer</i>Statistics</a></li>
+
+            <li><a class="dropdown-button" href="#!" data-activates="managedropdown1">Manage<i class="material-icons right drop-button">arrow_drop_down</i></a></li>
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse nav-button nav-icon-left"><i class="mdi-navigation-menu"></i></a>
+    </nav>

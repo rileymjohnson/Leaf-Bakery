@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/chart.js"></script>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+
+    <div class="container">
+        <form id="form">
+        <table class="striped responsive-table">
+        <thead>
+          <tr>
+              <th>Day</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for hour in hours %}
+            <tr id="{{ hour['day'] }}">
+                <td>{{ translate[hour['day']] }}</td>
+                <td>
+                    {% if hour['open'] == 0 %}
+                    <select class="browser-default" id="{{ hour['day'] }}start" disabled>
+                        {% else %}
+                        <select class="browser-default" id="{{ hour['day'] }}start">
+                        {% endif %}
+                        <option value="1">1:00</option>
+                        <option value="2">2:00</option>
+                        <option value="3">3:00</option>
+                        <option value="4">4:00</option>
+                        <option value="5">5:00</option>
+                        <option value="6">6:00</option>
+                        <option value="7">7:00</option>
+                        <option value="8">8:00</option>
+                        <option value="9">9:00</option>
+                        <option value="10">10:00</option>
+                        <option value="11">11:00</option>
+                        <option value="12">12:00</option>
+                        <option value="13">13:00</option>
+                        <option value="14">14:00</option>
+                        <option value="15">15:00</option>
+                        <option value="16">16:00</option>
+                        <option value="17">17:00</option>
+                        <option value="18">18:00</option>
+                        <option value="19">19:00</option>
+                        <option value="20">20:00</option>
+                        <option value="21">21:00</option>
+                        <option value="22">22:00</option>
+                        <option value="23">23:00</option>
+                        <option value="24">24:00</option>
+                    </select>
+                </td>
+                <script>
+                    $("#{{ hour['day'] }}start").val("{{ hour['start'] }}")
+                </script>
+                <td>
+                    {% if hour['open'] == 0 %}
+                    <select class="browser-default" id="{{ hour['day'] }}end" disabled>
+                        {% else %}
+                        <select class="browser-default" id="{{ hour['day'] }}end">
+                        {% endif %}
+                        <option value="1">1:00</option>
+                        <option value="2">2:00</option>
+                        <option value="3">3:00</option>
+                        <option value="4">4:00</option>
+                        <option value="5">5:00</option>
+                        <option value="6">6:00</option>
+                        <option value="7">7:00</option>
+                        <option value="8">8:00</option>
+                        <option value="9">9:00</option>
+                        <option value="10">10:00</option>
+                        <option value="11">11:00</option>
+                        <option value="12">12:00</option>
+                        <option value="13">13:00</option>
+                        <option value="14">14:00</option>
+                        <option value="15">15:00</option>
+                        <option value="16">16:00</option>
+                        <option value="17">17:00</option>
+                        <option value="18">18:00</option>
+                        <option value="19">19:00</option>
+                        <option value="20">20:00</option>
+                        <option value="21">21:00</option>
+                        <option value="22">22:00</option>
+                        <option value="23">23:00</option>
+                        <option value="24">24:00</option>
+                    </select>
+                </td>
+                <script>
+                    $("#{{ hour['day'] }}end").val("{{ hour['end'] }}")
+                </script>
+                <td>
+                    <div class="switch">
+                        <label>
+                          Closed
+                            {% if hour['open'] == 0 %}
+                          <input type="checkbox" id="{{ hour['day'] }}open" onchange="disableRow('{{ hour['day'] }}')">
+                            {% else %}
+                            <input type="checkbox" checked id="{{ hour['day'] }}open" onchange="disableRow('{{ hour['day'] }}')">
+                            {% endif %}
+                          <span class="lever"></span>
+                          Open
+                        </label>
+                      </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+        <div class="input-field">
+        <a class="waves-effect waves-light btn right disabled" id="update" style="margin-bottom:15px;">Update</a>
+        </div>
+        </form>
+    </div>
+    <script>
+        function disableRow(day) {
+            if ($("#" + day +"open").prop('checked')) {
+                $("#" + day + " select").prop("disabled", false);
+            } else {
+                $("#" + day + " select").prop("disabled", true);
+            }
+        }
+        $("#form").change(function() {
+            $("#update").removeClass("disabled")
+        })
+        $("#update").click(function() {
+            if (!$("#update").hasClass("disabled")) {
+                var start = {
+                    mon: $("#monstart").val(),
+                    tue: $("#tuestart").val(),
+                    wed: $("#wedstart").val(),
+                    thu: $("#thustart").val(),
+                    fri: $("#fristart").val(),
+                    sat: $("#satstart").val(),
+                    sun: $("#sunstart").val()
+                }
+                var end = {
+                    mon: $("#monend").val(),
+                    tue: $("#tueend").val(),
+                    wed: $("#wedend").val(),
+                    thu: $("#thuend").val(),
+                    fri: $("#friend").val(),
+                    sat: $("#satend").val(),
+                    sun: $("#sunend").val()
+                }
+                var open = {
+                    mon: $("#monopen").prop('checked') ? 1 : 0,
+                    tue: $("#tueopen").prop('checked') ? 1 : 0,
+                    wed: $("#wedopen").prop('checked') ? 1 : 0,
+                    thu: $("#thuopen").prop('checked') ? 1 : 0,
+                    fri: $("#friopen").prop('checked') ? 1 : 0,
+                    sat: $("#satopen").prop('checked') ? 1 : 0,
+                    sun: $("#sunopen").prop('checked') ? 1 : 0
+                }
+                $.post("/admin/api/hours", {start: JSON.stringify(start), end: JSON.stringify(end), open: JSON.stringify(open)}, function(data) {
+                    if (data == "true") {
+                        Materialize.toast('The hours have been Updated', 4000)
+                        $("#update").addClass("disabled")
+                    } else {
+                        Materialize.toast('The hours were not updated successfully', 4000)
+                    }
+                })
+            }
+        })
+    </script>
+    <script>
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+
+</html>

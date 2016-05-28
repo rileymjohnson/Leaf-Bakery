@@ -1,0 +1,13 @@
+.logContainer {
+    margin-top: -200px;
+    width: 50%;
+    position: absolute;
+    left: 25%;
+    top: 50%;
+}
+@media screen and (max-width: 768px) {
+    .logContainer {
+        width: 100%;
+        left: 0;
+    }
+}

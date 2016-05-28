@@ -1,0 +1,57 @@
+h1, h2, h3,h4, h5, {
+    color: white;
+}
+.events {
+    background-color: white;
+    width: 100%;
+}
+.event {
+    float: left;
+    width: 32%;
+    border: 0px;
+    margin-left: 1%;
+    margin-right: 1%;
+    min-height: 350px;
+}
+#one {
+    background-color: #2d570f;
+    margin-left: 0;
+}
+#two {
+    background-color: #262835;
+}
+#three {
+    background-color: #2d570f;
+    margin-right: 0;
+}
+.noevent2 {
+    background-color: #412203;
+    margin-left: 0px;
+    display: none;
+}
+.noevent3 {
+    background-color: #412203;
+    margin-right: 0;
+    display: none;
+}
+@media screen and (max-width: 850px) {
+    .event {
+        width: 100%;
+    }
+}
+
+.name {
+    font-size: 3em;
+}
+.date {
+    color: white !important;
+    opacity: .6;
+    font-size: 2em;
+}
+.description {
+    color: white !important;
+    font-size: 1 em;
+}
+.hideLoremIpsum {
+	visibility: hidden;
+}

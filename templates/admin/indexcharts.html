@@ -1,0 +1,129 @@
+<script type="text/javascript">
+		<!--function func(){-->
+		    $(function () {
+		        $('#categorybar').highcharts({
+		            chart: {
+		                type: 'column',
+		                backgroundColor: '#f5f5f5'
+		            },
+		            credits: {
+		            	enabled: false
+		            },
+		            title: {
+		                text: 'Order Statistics by Category'
+		            },
+		            xAxis: {
+		                type: 'category',
+		                labels: {
+		                    rotation: -45,
+		                    style: {
+		                        fontSize: '13px',
+		                        fontFamily: 'Verdana, sans-serif'
+		                    }
+		                }
+		            },
+		            yAxis: {
+		                min: 0,
+		                title: {
+		                    text: 'Number of Orders Placed'
+		                }
+		            },
+		            legend: {
+		                enabled: false
+		            },
+		            tooltip: {
+		                pointFormat: 'Number of Orders: <b>{point.y:f}</b>'
+		            },
+		            series: [{
+		                name: 'Category',
+		                data: [
+		                    ['Appetizers', {{ amount["appetizers"] }}],
+		                    ['Soups', {{ amount["soups"] }}],
+		                    ['Salads', {{ amount["salads"] }}],
+		                    ['Kids Menu', {{ amount["kids"] }}],
+		                    ['Entrees', {{ amount["entrees"] }}],
+		                    ['Breads', {{ amount["breads"] }}],
+		                    ['Drinks', {{ amount["drinks"] }}],
+		                    ['Desserts', {{ amount["desserts"] }}],
+		                ],
+		                dataLabels: {
+		                    enabled: true,
+		                    rotation: -90,
+		                    color: '#FFFFFF',
+		                    align: 'right',
+		                    format: '{point.y:f}', // one decimal
+		                    y: 10, // 10 pixels down from the top
+		                    style: {
+		                        fontSize: '13px',
+		                        fontFamily: 'Verdana, sans-serif'
+		                    }
+		                }
+		            }]
+		        });
+		    });
+		<!--};-->
+	</script>
+	<script type="text/javascript">
+		<!--function func(){-->
+		    $(function () {
+		        $('#linechart').highcharts({
+		            chart: {
+		                type: 'line',
+		                backgroundColor: '#f5f5f5'
+		            },
+		            credits: {
+		            	enabled: false
+		            },
+		            title: {
+		                text: 'Order Statistics by Day'
+		            },
+		            xAxis: {
+		                type: 'category',
+		                labels: {
+		                    rotation: -45,
+		                    style: {
+		                        fontSize: '13px',
+		                        fontFamily: 'Verdana, sans-serif'
+		                    }
+		                }
+		            },
+		            yAxis: {
+		                min: 0,
+		                title: {
+		                    text: 'Number of Orders Placed'
+		                }
+		            },
+		            legend: {
+		                enabled: false
+		            },
+		            tooltip: {
+		                pointFormat: 'Number of Orders: <b>{point.y:f}</b>'
+		            },
+		            series: [{
+		                name: 'Category',
+		                data: [
+		                    ['Sunday', {{ days["sun"] }}],
+		                    ['Monday', {{ days["mon"] }}],
+		                    ['Tuesday', {{ days["tue"] }}],
+		                    ['Wednesday', {{ days["wed"] }}],
+		                    ['Thursday', {{ days["thu"] }}],
+		                    ['Friday', {{ days["fri"] }}],
+		                    ['Saturday', {{ days["sat"] }}],
+		                ],
+		                dataLabels: {
+		                    enabled: true,
+		                    rotation: -90,
+		                    color: '#FFFFFF',
+		                    align: 'right',
+		                    format: '{point.y:f}', // one decimal
+		                    y: 10, // 10 pixels down from the top
+		                    style: {
+		                        fontSize: '13px',
+		                        fontFamily: 'Verdana, sans-serif'
+		                    }
+		                }
+		            }]
+		        });
+		    });
+		<!--};-->
+	</script>

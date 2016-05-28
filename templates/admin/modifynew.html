@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link href="../../static/admin/css/cropper.min.css" rel="stylesheet" type="text/css">
+    <link rel='shortcut icon' href='../../static/favicon/faviconnew.png' type='image/x-icon' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script src="../../static/admin/js/cropper.min.js" type="text/javascript"></script>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+    <div class="container">
+        <h5>Modify Item</h5>
+        <select id="category">
+        	<option disabled selected value="">
+            	What Category
+            </option>
+	        <option value="appetizers">Appetizer</option>
+	        <option value="soups">Soup</option>
+	        <option value="salads">Salad</option>
+	        <option value="kids">Kids Menu</option>
+	        <option value="entrees">Entree</option>
+	        <option value="breads">Bread</option>
+	        <option value="drinks">Drink</option>
+	        <option value="desserts">Dessert</option>
+        </select>
+        <div id="items">
+        </div>
+        <div id="formSection" style="display: none;">
+        	<div id="imageContainer"><img id="image" style="max-width: 100%"></div>
+            <form action="#" id="form">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>Picture</span> <input accept="image/*" id="theFile" type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path" type="text">
+                    </div>
+                </div>
+                <div class="input-field">
+                    <input id="name" type="text"> <label for="first_name" id="nameLabel">Name</label>
+                </div>
+                <div class="input-field">
+                    <input id="price" type="number"> <label for="first_name" class="active" id="priceLabel">Price</label>
+                </div>
+                <div class="input-field">
+                    <textarea class="materialize-textarea" id="shortDes"></textarea> <label for="textarea1" class="active" id="shortDesLabel">Short
+	                Description</label>
+                </div>
+                <div class="input-field">
+                    <textarea class="materialize-textarea" id="longDes"></textarea>
+                    <label for="textarea1" class="active" id="longDesLabel">Long Description</label>
+                </div>
+                <div class="progress" id="progress" style="display: none">
+                    <div class="indeterminate"></div>
+                </div>
+                <div class="input-field" style="margin-bottom: 20px">
+                    <a class="waves-effect waves-light btn" id="submit">Submit</a>
+                    <button class="waves-effect waves-light btn red" id="reset1" type="reset">
+	            	Reset
+	            </button>
+                </div>
+            </form>
+        </div>
+        <script>
+            var imageLoc = ""
+            theCrop = $('#image').cropper({
+                aspectRatio: 750 / 500
+            });
+
+            $("#reset1").click(function() {
+                $("#imageContainer").hide()
+                change = false
+                $('#category').val( $('#category').prop('defaultSelected') );
+    			$('#category').material_select();
+    			$("#items").hide()
+    			$("#formSection").hide()
+            })
+
+            $("#category").change(function() {
+            	$("#formSection").hide()
+                $.get("/admin/api/deletecategory", {
+                    category: $("#category").val()
+                }, function(dat) {
+                    var data = JSON.parse(dat);
+                    if (data.length == 0) {
+                        $("#items").html("<p>There are no items in this category")
+                    }
+                    var option = "";
+                    for (var i = 0; i < data.length; i++) {
+                        option += "<p><input onchange='radioChange(event)' name='item' type='radio' id='radio" + data[i].id + "' value='" + data[i].id + "' /><label for='radio" + data[i].id + "'>" + data[i].name + "</label></p>";
+                    }
+                    $("#items").html(option)
+                    $("#items").show()
+                })
+            })
+            var currentItem;
+
+            function radioChange(event) {
+                var item = event.target.value;
+                currentItem = item
+                var category = $("#category").val();
+                $.post("/admin/api/modify", {
+                    category: category,
+                    item: item
+                }, function(dat) {
+                    $("#formSection").show()
+                    var data = JSON.parse(dat)[0]
+                    $("#name").val(data.name)
+                    $("#price").val(data.price)
+                    $("#shortDes").val(data.shortDes)
+                    $("#longDes").val(data.longDes)
+                    $("#nameLabel").addClass("active")
+                    $("#priceLabel").addClass("active")
+                    $("#shortDesLabel").addClass("active")
+                    $("#longDesLabel").addClass("active")
+                    imageLoc = data.location
+                })
+            }
+            var changed = false;
+            var $image = $('#image');
+            var URL = window.URL || window.webkitURL;
+            var blobURL;
+
+            if (URL) {
+                $("#theFile").change(function() {
+                	$("#imageContainer").show()
+                    changed = true;
+                    fileName = this.value.split(/(\\|\/)/g).pop()
+                    var files = this.files;
+                    var file;
+
+                    if (!$image.data('cropper')) {
+                        return;
+                    }
+
+                    if (files && files.length) {
+                        file = files[0];
+
+                        if (/^image\/\w+$/.test(file.type)) {
+                            blobURL = URL.createObjectURL(file);
+                            $image.one('built.cropper', function() {
+
+                                // Revoke when load complete
+                                URL.revokeObjectURL(blobURL);
+                            }).cropper('reset').cropper('replace', blobURL);
+                        } else {
+                            window.alert('Please choose an image file.');
+                        }
+                    }
+                });
+            } else {
+                $inputImage.prop('disabled', true).parent().addClass('disabled');
+            }
+            $("#submit").on("click", function() {
+                $("#progress").show()
+                var category = $("#category").val()
+                var price = parseFloat(Math.round($("#price").val() * 100) / 100).toFixed(2);
+                var name = $("#name").val()
+                var shortDes = $("#shortDes").val()
+                var longDes = $("#longDes").val()
+                if (category) {
+                    if (price && price != 0.00) {
+                        if (name) {
+                            if (shortDes) {
+                                if (longDes) {
+                                    if (changed) {
+                                        var re = /(?:\.([^.]+))?$/;
+                                        var t = re.exec($("#theFile").val())[1]
+                                        if (t == "jpg") {
+                                            t = "jpeg"
+                                        }
+                                        var dataUrl = theCrop.cropper('getCroppedCanvas', {
+                                            height: 500,
+                                            width: 750
+                                        }).toDataURL("image/" + t)
+                                        dataUrl = dataUrl.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+                                        $.ajax({
+                                            url: 'https://api.imgur.com/3/upload.json',
+                                            type: 'POST',
+                                            headers: {
+                                                Authorization: 'Client-ID 2db4c2f200e876b'
+                                            },
+                                            data: {
+                                                type: 'base64',
+                                                name: 'neon.jpg',
+                                                title: 'Nebula',
+                                                description: 'Made using cropper',
+                                                image: dataUrl
+                                            },
+                                            dataType: 'json'
+                                        }).success(function(data) {
+                                            url = data.data.link.replace(/^http:\/\//i, 'https://');
+
+                                            $.post("/admin/api/itemmodify", {
+                                                category: category,
+                                                item: currentItem,
+                                                name: name,
+                                                price: price,
+                                                shortDes: shortDes,
+                                                longDes: longDes,
+                                                location: url
+                                            }, function(data) {
+                                                if (data == "true") {
+                                                	Materialize.toast("The item was modified", 4000)
+                                                	$('#category').val( $('#category').prop('defaultSelected') );
+    												$('#category').material_select();
+    												$("#form")[0].reset()
+    												changed = false
+    												$('input[name="item"]').prop('checked', false);
+    												$("#items").hide()
+    												$("#imageContainer").hide()
+    												$("#formSection").hide()
+                                                	$("#progress").hide()
+                                                } else {
+                                                	Materialize.toast("The item was not modified", 4000)
+                                                	$("#progress").hide()
+                                                }
+                                            })
+
+                                        }).error(function() {
+                                            Materialize.toast("The item was not modified", 4000)
+                                            $("#progress").hide()
+                                        });
+
+                                    } else {
+                                        $.post("/admin/api/itemmodify", {
+                                            category: category,
+                                            item: currentItem,
+                                            name: name,
+                                            price: price,
+                                            shortDes: shortDes,
+                                            longDes: longDes,
+                                            location: imageLoc
+                                        }, function(data) {
+                                        	if (data == "true") {
+                                        		Materialize.toast("The item was modified", 4000)
+                                        		$('#category').val( $('#category').prop('defaultSelected') );
+    											$('#category').material_select();
+    											$("#items").hide()
+    											$("#formSection").hide()
+                                        		$("#progress").hide()
+                                        	} else {
+                                        		Materialize.toast("The item was not modified", 4000)
+                                        		$("#progress").hide()
+                                        	}
+                                        })
+                                    }
+                                } else {
+                                    Materialize.toast("Please enter a long description", 4000)
+                                    $("#progress").hide()
+                                }
+                            } else {
+                                Materialize.toast("Please enter a short description", 4000)
+                                $("#progress").hide()
+                            }
+                        } else {
+                            Materialize.toast("Please pick a name", 4000)
+                            $("#progress").hide()
+                        }
+                    } else {
+                        Materialize.toast("Please pick a price", 4000)
+                        $("#progress").hide()
+                    }
+                } else {
+                    Materialize.toast("Please pick a category", 4000)
+                    $("#progress").hide()
+                }
+            })
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('select').material_select();
+            });
+            $(".button-collapse").sideNav();
+            $(".button-collapse").sideNav();
+            $(".dropdown-button").dropdown();
+        </script>
+</body>
+
+</html>

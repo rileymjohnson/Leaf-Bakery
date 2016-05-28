@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/chart.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/list.js"></script>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+
+    <div class="container">
+        <h3 style="text-align: center">Members</h3>
+        <button data-target="modal1" class="btn modal-trigger">Send Message</button>
+        <div id="users">
+            <div class="input-field">
+  <input class="search validate" placeholder="Search By Name" type="text" />
+
+                </div>
+        <table class="striped responsive-table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Phone Number</th>
+              <th>Email</th>
+          </tr>
+        </thead>
+        <tbody class="list">
+            {% for member in members %}
+            <tr>
+                <td class="name">{{ member['name'] }}</td>
+                <td>{{ member['phone'] }}</td>
+                <td>{{ member['email'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    </div>
+<div id="modal1" class="modal bottom-sheet">
+            <div class="modal-content">
+              <h4>Leaf loyalty members message</h4>
+             <div class="input-field">
+                 <form id="form">
+                 <textarea id="message" class="materialize-textarea"></textarea>
+                <label for="textarea1">Message</label>
+                 </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <a class="modal-action modal-close waves-effect waves-light btn red left" id="cancelButton">Cancel</a>
+              <a class="modal-action modal-close waves-effect waves-light btn" id="sendButton">Send</a>
+            </div>
+          </div>
+    <script>    
+        var options = {
+          valueNames: ['name', 'time']
+        };
+
+        var userList = new List('users', options);
+    </script>
+    <script>
+        $("#cancelButton").click(function() {
+            $("#form")[0].reset()
+        })
+        $("#sendButton").click(function() {
+            if ($("#message").val()) {
+                $.post("/admin/members/email", {message: $("#message").val()}, function(data) {
+                    if (data == "true") {
+                        Materialize.toast("The message was sent", 4000)
+                        $("#form")[0].reset()
+                    } else {
+                        Materialize.toast("The message was not sent", 4000)
+                    }
+                })
+            } else {
+                Materialize.toast("Please enter a message", 4000)
+            }
+        })
+        $(document).ready(function(){
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal-trigger').leanModal();
+          });
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+
+</html>

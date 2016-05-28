@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/chart.js"></script>
+    <title>Admin Panel</title>
+    <style>
+        @media screen and (max-width: 992px) {
+            .topButton {
+                width: 100%;
+            }
+        }
+        #area {
+		width: 140%;
+		margin-left: -20%;
+		margin-top: -20%;
+		margin-bottom: -20%;
+		position: relative;
+	}
+	#box {
+		height: calc(100% - 77px);
+		width: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	#text {
+		color: black;
+		position: relative;
+    	top: 50%; 
+    	transform: translateY(-50%);
+	    -webkit-transform: translateY(-50%);
+	    text-align: center;
+	    font-size: 2vw;
+	}
+	@media screen and (max-width: 992px) {
+	    #text {
+	    	font-size: 4vw;
+	    }
+	}
+	@media screen and (max-width: 600px) {
+	    #text {
+	    	font-size: 8vw;
+	    }
+	}
+    </style>
+</head>
+
+<body>
+    <div id="starter">
+        <div class="spinner"></div>
+    </div>
+    {% include "admin/adminnav.html" %}
+
+    <div class="row">
+        <div class="col s12 m6">
+        <div class="card grey lighten-4">
+          <div class="card-content white-text">
+              <div style="width: 100%">
+                  <canvas id="canvas" height="300" width="600"></canvas>
+              </div>
+            </div>
+            <div class="card-action white-text" style="text-align: right">
+                <a class="waves-effect waves-light btn teal topButton" href="/admin/stats/bar"><i class="material-icons right">keyboard_arrow_right</i>Category Stats</a>
+            </div>
+        </div>
+        </div>
+        <div class="col s12 m6">
+        <div class="card grey lighten-4">
+          <div class="card-content white-text">
+              <div style="width: 100%">
+                <canvas id="line1" height="300" width="600"></canvas>
+              </div>
+            </div>
+            <div class="card-action white-text" style="text-align: right">
+                <a class="waves-effect waves-light btn teal topButton" href="/admin/stats/line"><i class="material-icons right">keyboard_arrow_right</i>Category / Day</a>
+            </div>
+        </div>
+        </div>
+        <div class="col l3 m6 s12">
+             <div class="card grey lighten-4">
+            <div class="card-image">
+                <div style="width: 100%;">
+              <div id="map" style="height: 0%; width: 100%; padding-bottom: 75%"></div>
+                </div>
+            </div>
+            <div class="card-action white-text" style="text-align: right">
+                <a class="waves-effect waves-light btn teal" style="width: 100%" href="https://www.google.com/maps/@40.758899,-73.9873197,17z/data=!3m1!4b1!5m1!1e1"><i class="material-icons right">keyboard_arrow_right</i>Traffic</a>
+            </div>
+          </div>
+        </div>
+        <div class="col l3 m6 s12">
+             <div class="card grey lighten-4">
+            <div class="card-image">
+              <img src="../../static/admin/images/img1.jpg">
+              <span class="card-title" style="color: white; font-size: 25px">{{ temp }}&deg;C</span>
+            </div>
+            <div class="card-action white-text" style="text-align: right">
+                <a class="waves-effect waves-light btn teal" style="width: 100%" href="http://www.weather.com/weather/today/l/USNY0996:1:US"><i class="material-icons right">keyboard_arrow_right</i>Weather</a>
+            </div>
+          </div>
+        </div>
+        <div class="col l3 m6 s12">
+        <div class="card grey lighten-4">
+          <div class="card-content white-text" style="overflow: hidden;">
+                <svg id="area" width="720" viewBox="0 0 720 720">
+                	<div id="box">
+						<div id="text">Appetizers</div>
+					</div>
+				</svg>
+            </div>
+            <div class="card-action white-text" style="text-align: right; overflow: hidden">
+                <a class="waves-effect waves-light btn teal" style="width: 100%" href="/admin/stats/donut"><i class="material-icons right">keyboard_arrow_right</i>Category %</a>
+            </div>
+        </div>
+        </div>
+        <div class="col l3 m6 s12">
+        <div class="card  lighten-4">
+          <div class="card-content white-text">
+              <div style="width: 100%">
+                <img src="../../static/admin/images/export.png" style="width: 100%">
+            </div>
+            </div>
+          <div class="card-action white-text" style="text-align: right">
+                <a class="waves-effect waves-light btn teal" style="width: 100%" href="/admin/stats/stats"><i class="material-icons right">keyboard_arrow_right</i>Export</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+<script>
+
+var width = 500,
+    height = 500,
+    outerRadius = Math.min(width, height) * .5 - 10,
+    innerRadius = outerRadius * .6;
+
+testData = [
+	{
+		name: "Appetizers",
+		data: [
+			{% for i in donut["appetizers"] %}
+				{{ i }},
+				{% endfor %}
+		]
+	},
+	{
+		name: "Soups",
+		data: [
+			{% for i in donut["soups"] %}
+				{{ i }},
+			{% endfor %}
+		]
+	},
+	{
+		name: "Salads",
+		data: [
+			{% for i in donut["salads"] %}
+				{{ i }},
+			{% endfor %}
+		]
+	},
+	{
+		name: "Kids Menu",
+		data: [
+			{% for i in donut["kids"] %}
+				{{ i }},
+			{% endfor %}
+		]
+	},
+	{
+		name: "Entrees",
+		data: [
+			{% for i in donut["entrees"] %}
+				{{ i }},
+			{% endfor %}
+		]
+	},
+	{
+		name: "Breads",
+		data: [
+			{% for i in donut["breads"] %}
+				{{ i }},
+			{% endfor %}
+		]
+	},
+	{
+		name: "Drinks",
+		data: [
+			{% for i in donut["drinks"] %}
+				{{ i }},
+			{% endfor %}
+		]
+	},
+	{
+		name: "Desserts",
+		data: [
+			{% for i in donut["desserts"] %}
+				{{ i }},
+			{% endfor %}
+		]
+	}
+]
+
+var n = {{ highest }},
+    data;
+
+$(window).on("load", function() {
+	document.getElementById("area").setAttribute("height", $("#area").width())
+})
+
+$(window).on("resize", function() {
+	document.getElementById("area").setAttribute("height", $("#area").width())
+})
+
+var color = d3.scale.category20();
+
+var arc = d3.svg.arc();
+
+var pie = d3.layout.pie()
+    .sort(null);
+
+   var svg = d3.select("#area").append("svg")
+   	.attr("id", "innerSvg")
+    .attr('viewBox', '0 0 720 720')
+    .attr('preserveAspectRatio','xMinYMin meet');
+
+svg.selectAll(".arc")
+    .data(arcs(testData[0].data, testData[1].data))
+  .enter().append("g")
+    .attr("class", "arc")
+    .attr("transform", "translate(360, 360)")
+  .append("path")
+    .attr("fill", function(d, i) { return color(i); })
+    .attr("d", arc);
+
+transition(1, 1);
+
+function arcs(data0, data1) {
+  var arcs0 = pie(data0),
+      arcs1 = pie(data1),
+      i = -1,
+      arc;
+  while (++i < n) {
+    arc = arcs0[i];
+    arc.innerRadius = innerRadius;
+    arc.outerRadius = outerRadius;
+    arc.next = arcs1[i];
+  }
+  return arcs0;
+}
+
+function next(num) {
+	return testData[num % testData.length]
+}
+
+function transition(state, number) {
+  var path = d3.selectAll(".arc > path")
+      .data(arcs(testData[number - 1].data, next(number).data));
+
+  // Wedges split into two rings.
+  var t0 = path.transition()
+      .duration(1000)
+      .attrTween("d", tweenArc(function(d, i) {
+        return {
+          innerRadius: i & 1 ? innerRadius : (innerRadius + outerRadius) / 2,
+          outerRadius: i & 1 ? (innerRadius + outerRadius) / 2 : outerRadius
+        };
+      }));
+
+  // Wedges translate to be centered on their final position.
+  var t1 = t0.transition()
+      .attrTween("d", tweenArc(function(d, i) {
+        var a0 = d.next.startAngle + d.next.endAngle,
+            a1 = d.startAngle - d.endAngle;
+        return {
+          startAngle: (a0 + a1) / 2,
+          endAngle: (a0 - a1) / 2
+        };
+      }));
+
+  // Wedges then update their values, changing size.
+  var t2 = t1.transition()
+        .attrTween("d", tweenArc(function(d, i) {
+          return {
+            startAngle: d.next.startAngle,
+            endAngle: d.next.endAngle
+          };
+        }));
+
+  // Wedges reunite into a single ring.
+  var t3 = t2.transition()
+      .attrTween("d", tweenArc(function(d, i) {
+        return {
+          innerRadius: innerRadius,
+          outerRadius: outerRadius
+        };
+      }));
+      $("#text").fadeOut(function() {
+  		$(this).text(next(number).name).fadeIn();
+	});
+      if (number == 8) {
+      	setTimeout(function() { transition(!state, 1); }, 6000);
+      } else {
+      	setTimeout(function() { transition(!state, number + 1); }, 6000);
+      }
+}
+
+function tweenArc(b) {
+  return function(a, i) {
+    var d = b.call(this, a, i), i = d3.interpolate(a, d);
+    for (var k in d) a[k] = d[k]; // update data
+    return function(t) { return arc(i(t)); };
+  };
+}
+
+</script>
+    <!--Import jQuery before materialize.js-->
+        <script>
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 13,
+    center: {lat: 40.758903, lng: -73.985142}
+  });
+
+  var trafficLayer = new google.maps.TrafficLayer();
+  trafficLayer.setMap(map);
+}
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4gYC3OV_4mvcoA3VT21c3xbe2L0ZlD1s&callback=initMap&signed_in=true" async defer>
+    </script>
+    <script>
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+    <script>
+		var lineChartData = {
+			labels : ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+			datasets : [
+				{
+					fillColor : "rgba(151,187,205,0.2)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(151,187,205,1)",
+					data : [{{ days["sun"] }}, {{ days["mon"] }}, {{ days["tue"] }}, {{ days["wed"] }}, {{ days["thu"] }}, {{ days["fri"] }}, {{ days["sat"] }}]
+                }
+			]
+		}
+        var barChartData = {
+		labels : ["Appetizers", "Soups", "Salads", "Kids Menu", "Entrees", "Breads", "Drinks", "Desserts"],
+		datasets : [
+			{
+				fillColor : "rgba(220,220,220,0.5)",
+				strokeColor : "rgba(220,220,220,0.8)",
+				highlightFill: "rgba(220,220,220,0.75)",
+				highlightStroke: "rgba(220,220,220,1)",
+				data : [{{ amount["appetizers"] }}, {{ amount["soups"] }}, {{ amount["salads"] }}, {{ amount["kids"] }}, {{ amount["entrees"] }}, {{ amount["breads"] }}, {{ amount["drinks"] }}, {{ amount["desserts"] }}]
+			}
+		]
+	}
+			window.onload = function(){
+                $("#starter").hide();
+                var ctxline = document.getElementById("line1").getContext("2d");
+                window.myLine = new Chart(ctxline).Line(lineChartData, {
+                    responsive: true
+                });
+                var ctxbar = document.getElementById("canvas").getContext("2d");
+		          window.myBar = new Chart(ctxbar).Bar(barChartData, {
+			     responsive : true
+		          });
+			};
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/faviconnew.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/chart.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/list.js"></script>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+    <div class="container">
+        <h5>Add Item</h5>
+        <form method="post" action="/admin/api/item/add" id="form" enctype="multipart/form-data">
+        <div class="input-field">
+            <select id="category" name="category">
+                <option value="" selected disabled>Choose category</option>
+                <option value="appetizers">Appetizer</option>
+                <option value="soups">Soup</option>
+                <option value="salads">Salad</option>
+                <option value="kids">Kids Item</option>
+                <option value="entrees">Entree</option>
+                <option value="breads">Bread</option>
+                <option value="drinks">Drink</option>
+                <option value="desserts">Dessert</option>
+            </select>
+        </div>
+        <div class="input-field">
+            <label>Name:</label>
+            <input type="text" id="name" name="name">
+        </div>
+        <div class="input-field">
+            <textarea id="short" class="materialize-textarea" name="short"></textarea>
+            <label>Short Description</label>
+        </div>
+        <div class="input-field">
+            <textarea id="long" class="materialize-textarea" name="long"></textarea>
+            <label>Long Description</label>
+        </div>
+        <div class="input-field">
+            <label>Price</label>
+            <input type="number" min="0.01" step="0.01" max="2500" id="price" name="price" />
+        </div>
+        <div class="input-field">
+            <input type="file" value="upload" name="picture">
+            </div>
+        <div class="input-field" style="margin-bottom: 15px">
+            <input type="button" class="waves-effect waves-light btn" value="submit" id="submitbutton">
+            <input type="reset" class="waves-effect waves-light btn red" value="reset">
+        </div>
+        </form>
+    </div>
+    <script>
+        $("#submitbutton").click(function() {
+            if ($("#category").val()) {
+                if ($("#name").val()) {
+                    if ($("#short").val()) {
+                        if ($("#long").val()) {
+                            if ($("#price").val()) {
+                                $("#form")[0].submit()
+                            } else {
+                                Materialize.toast("Please enter a price", 4000)
+                            }
+                        } else {
+                            Materialize.toast("Please enter a long description", 4000)
+                        }
+                    } else {
+                        Materialize.toast("Please enter a short description", 4000)
+                    }
+                } else {
+                    Materialize.toast("Please enter a name", 4000)
+                }
+            } else {
+                Materialize.toast("Please pick a category", 4000)
+            }
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+          });
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+
+</html>

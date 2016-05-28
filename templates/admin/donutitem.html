@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/chart.js"></script>
+    <title>Admin Panel</title>
+    <style>
+        .donutHolder {
+            width: 45%;
+            margin: 0 auto;
+        }
+        h3 {
+        text-align: center;
+        }
+        @media screen and (max-width: 600px) {
+            .donutHolder {
+            width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+
+    <div class="container">
+        <h3>Percent of each item ordered</h3>
+        <div class="donutHolder">
+        <canvas id="donut1" width="500" height="500"/>
+        </div>
+    </div>
+    <script>
+        var doughnutData = [
+            {% for item in ar %}
+                {
+					value: {{ ((item[0]/total) * 100) | round }},
+					color: "{{ item[1] }}",
+					highlight: "{{ item[2] }}",
+					label: "{{ item[3] }}"
+				},
+            {% endfor %}
+			];
+        window.onload = function() {
+            var ctx = document.getElementById("donut1").getContext("2d");
+				window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
+        }
+    </script>
+    <script>
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+
+</html>

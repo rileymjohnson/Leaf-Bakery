@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/chart.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/list.js"></script>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+
+    <div class="container">
+        <h3 style="text-align: center">Orders</h3>
+        <div id="users">
+        <div class="input-field">
+            <input class="search validate" placeholder="Search By Name" type="text" id="theSearch" />
+        </div>
+        <table class="striped responsive-table">
+        <thead>
+          <tr>
+              <th>Type</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Notes</th>
+              <th>Items</th>
+              <th>Options</th>
+          </tr>
+        </thead>
+        <tbody class="list" id="theList">
+            {% for order in orders %}
+          <tr id="{{ order['id'] }}">
+              {% if order['type'] == "pick" %}
+              <td>Pick Up</td>
+              {% endif %}
+              {% if order['type'] == "deliv" %}
+              <td>Delivery</td>
+              {% endif %}
+              {% if order['name'] == "false" %}
+              <td class="name">No Name</td>
+              {% else %}
+              <td class="name">{{ order['name'] }}</td>
+              {% endif %}
+              
+              {% if order['address'] == "false" %}
+              <td>No Address</td>
+              {% else %}
+              <td>{{ order['address'] }}</td>
+              {% endif %}
+              
+              {% if order['note'] == "" %}
+                <td>No notes</td>
+              {% else %}
+                <td>{{ order['note'] }}</td>
+              {% endif %}
+              <td>
+                <a class="waves-effect waves-light btn" href="/admin/orderitem?id={{ order['id'] }}">Items</a>
+              </td>
+              <td>
+                  <a class="btn waves-effect waves-light red" onclick="deleteItem('{{ order['id'] }}')"><i class="material-icons">delete</i></a>
+              </td>
+          </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+            <p style="display: none" id="error">There are no orders at this time</p>
+    </div>
+    </div>
+    <script>
+        var options = {
+          valueNames: [ 'name']
+        };
+
+        var userList = new List('users', options);
+    </script>
+    <script>
+        function deleteItem(i) {
+            $("#" + i).remove();
+            $.post("/admin/api/deleteorder", {id: i}, function() {
+                if ($("#theList").children().length == 0) {
+                    $("#error").show();
+                    $("#theSearch")[0].disabled = "true";
+                }
+            });
+        }
+    </script>
+    <script>
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+
+</html>

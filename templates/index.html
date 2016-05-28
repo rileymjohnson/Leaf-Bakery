@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Leaf</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../static/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/css/awesome.css">
+	<link rel="stylesheet" href="../static/css/social.css">
+	<link rel="stylesheet" href="../static/cssNew/personal/new/style.css">
+	<link rel='shortcut icon' href='../static/favicon/faviconnew.png' type='image/x-icon'/ >
+	<script src="../static/js/jquery.js"></script>
+	<script src="../static/js/bootstrap.min.js"></script>
+	<!--[if lt IE 7]>
+		<style type="text/css">
+			#wrapper { height:100%; }
+		</style>
+	<![endif]-->
+	<style>
+		@import url(https://fonts.googleapis.com/css?family=Oswald);
+		* {
+			font-family: 'Oswald', sans-serif;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="wrapper">
+		<div id="content">
+			{% include "nav.html" %}
+			<div id="myCarousel" class="carousel slide" data-ride="carousel">
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner" role="listbox">
+					<div class="item active" onclick="location.href='/category?type=appetizers'">
+						<img src="../static/imagesNew/new/img1.jpg" alt="delicious food" class="back img-responsive" style="margin: 0 auto; width: 100%; max-height: 668px;">
+						<div class="carousel-caption">
+							<div class="full-width text-center">
+								<h2>
+									Starters
+								</h2>
+								<img src="../static/imagesNew/wreath/wreath.png" alt="wreath">
+							</div>
+						</div>
+					</div>
+
+					<div class="item" onclick="location.href='/category?type=soups'">
+						<img src="../static/imagesNew/new/img2.jpg" alt="delicious food" class="back img-responsive" style="margin: 0 auto; width: 100%; max-height: 668px;">
+						<div class="carousel-caption">
+							<div class="full-width text-center">
+								<h2>
+									Soups
+								</h2>
+								<img src="../static/imagesNew/wreath/wreath.png" alt="wreath">
+							</div>
+						</div>
+					</div>
+
+					<div class="item" onclick="location.href='/category?type=salads'">
+						<img src="../static/imagesNew/new/img3.jpg" alt="delicious food" class="back img-responsive" style="margin: 0 auto; width: 100%; max-height: 668px;"> 
+						<div class="carousel-caption">
+							<div class="full-width text-center">
+								<h2>
+									Salads
+								</h2>
+								<img src="../static/imagesNew/wreath/wreath.png" alt="wreath">
+							</div>
+						</div>
+					</div>
+
+					<div class="item" onclick="location.href='/category?type=entrees'">
+						<img src="../static/imagesNew/new/img4.jpg" alt="delicious food" class="back img-responsive" style="margin: 0 auto; width: 100%; max-height: 668px;">
+						<div class="carousel-caption">
+							<div class="full-width text-center">
+								<h2>
+									Entrees
+								</h2>
+								<img src="../static/imagesNew/wreath/wreath.png" alt="wreath">
+							</div>
+						</div>
+					</div>
+
+					<div class="item" onclick="location.href='/category?type=kids'">
+						<img src="../static/imagesNew/new/img5.jpg" alt="delicious food" class="back img-responsive" style="margin: 0 auto; width: 100%; max-height: 668px;">
+						<div class="carousel-caption">
+							<div class="full-width text-center">
+								<h2>
+									For kids
+								</h2>
+								<img src="../static/imagesNew/wreath/wreath.png" alt="wreath">
+							</div>
+						</div>
+					</div>
+
+					<div class="item" onclick="location.href='/category?type=drinks'">
+						<img src="../static/imagesNew/new/img7.jpg" alt="delicious food" class="back img-responsive" style="margin: 0 auto; width: 100%; max-height: 668px;">
+						<div class="carousel-caption">
+							<div class="full-width text-center">
+								<h2>
+									Drinks
+								</h2>
+								<img src="../static/imagesNew/wreath/wreath.png" alt="wreath">
+							</div>
+						</div>
+					</div>
+
+					<div class="item" onclick="location.href='/category?type=desserts'">
+						<img src="../static/imagesNew/new/img8.jpg" alt="delicious food" class="back img-responsive" style="margin: 0 auto; width: 100%; max-height: 668px;">
+						<div class="carousel-caption">
+							<div class="full-width text-center">
+								<h2>
+									Desserts
+								</h2>
+								<img src="../static/imagesNew/wreath/wreath.png" alt="wreath">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Left and right controls -->
+				<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next" style="background-color: transparent;">
+					<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
+			</div>
+			<table>
+				<tr>
+					<td id="left" style="background-color: #F1E3D4">
+						<h3 style="padding-top: 10px; font-family: 'PT Sans', sans-serif;">About Leaf</h3>
+						<hr style="margin: 0 auto; margin-top: 10px; margin-bottom: 10px;">
+						<p class="iText" style="padding-bottom: 10px; font-family: 'PT Sans', sans-serif;">Leaf is a Five Star high-end restaurant serving you only the best food. We offer a wide variety of options from healthy and delicious soups and salads, to your not so healthy, but still delicious desserts. We have won many awards spread throughout our eight menu categories. We even offer a Kids Menu which is sure to satisfy your children's cravings!</p>
+					</td>
+					<td id="right">
+						<img src="../static/imagesNew/main/img1.jpg" class="rightImg">
+					</td>
+				</tr>
+			</table>
+			<div class="correct">
+				<table>
+				<tr>
+					<td id="left" style="background-color: #F1E3D4">
+						<h3 style="padding-top: 10px; font-family: 'PT Sans', sans-serif;">Totally Gluten-Free</h3>
+						<hr style="margin: 0 auto; margin-top: 10px; margin-bottom: 10px;">
+						<p class="iText" style="padding-bottom: 10px; font-family: 'PT Sans', sans-serif;">We promise to serve a completely gluten-free menu. From our pertfectly crafted appetizers and entrees, to our wonderful looking and tasting desserts. Our specialty drink menu offers many wonderful gluten-free options. Our smoothies are all homemade to ensure they are gluten-free and taste the best then can. We fresh squeeze all our juices right in the kitchen, and brew the tea with only the finest water!</p>
+					</td>
+					<td id="right">
+						<img src="../static/imagesNew/main/img2.jpg" class="rightImg">
+					</td>
+				</tr>
+			</table>
+			</div>
+			<div class="incorrect">
+				<table>
+					<tr>
+						<td id="right" class="rightRev" style="padding-left: 0%; width: 51%">
+							<img src="../static/imagesNew/main/img2.jpg" class="rightImg">
+						</td>
+						<td id="left" style="background-color: #F1E3D4">
+							<h3 style="padding-top: 10px; font-family: 'PT Sans', sans-serif;">Totally Gluten-Free</h3>
+							<hr style="margin: 0 auto; margin-top: 10px; margin-bottom: 10px;">
+							<p class="iText" style="padding-bottom: 10px; font-family: 'PT Sans', sans-serif;">We promise to serve a completely gluten-free menu. From our pertfectly crafted appetizers and entrees, to our wonderful looking and tasting desserts. Our specialty drink menu offers many wonderful gluten-free options. Our smoothies are all homemade to ensure they are gluten-free and taste the best then can. We fresh squeeze all our juices right in the kitchen, and brew the tea with only the finest water!</p>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<table>
+				<tr>
+					<td id="left" style="background-color: #F1E3D4; text-align: center">
+						<h3 style="padding-top: 10px; font-family: 'PT Sans', sans-serif;">Only Organic Foods</h3>
+							<hr style="margin: 0 auto; margin-top: 10px; margin-bottom: 10px;">
+							<p class="iText" style="padding-bottom: 10px; font-family: 'PT Sans', sans-serif;">All of our dishes are made from organically grown foods. We buy all the vegetables and fruits we need from a local farmers market and we buy the ingredients to make bread from a local grainery. This is another way we pledge our support to being environmentally friendly and supporting local businesses. We also never use GMOs or any other chemical that would alter the food. Our goal is to provide delicious and healthy food to customers.</p>
+					</td>
+					<td id="right">
+						<img src="../static/imagesNew/main/img3.jpg" class="rightImg">
+					</td>
+				</tr>
+			</table>
+			<div class="correct">
+				<table>
+				<tr>
+					<td id="left" style="background-color: #F1E3D4">
+						<h3 style="padding-top: 10px; font-family: 'PT Sans', sans-serif;">Hours</h3>
+						<hr style="margin: 0 auto; margin-top: 10px; margin-bottom: 10px; width: 150px;">
+						<ul style="list-style-position: inside; display:inline-table; width: 100%;list-style-type: none;">
+							{% if hours[0][0] == "false" %}
+							<li><strong>Monday:</strong> Closed</li>
+							{% else %}
+							<li><strong>Monday:</strong> {{ hours[0][1] }}-{{ hours[0][2] }}</li>
+							{% endif %}
+							{% if hours[1][0] == "false" %}
+							<li><strong>Tuesday:</strong> Closed</li>
+							{% else %}
+							<li><strong>Tuesday:</strong> {{ hours[1][1] }}-{{ hours[1][2] }}</li>
+							{% endif %}
+							{% if hours[2][0] == "false" %}
+							<li><strong>Wednesday:</strong> Closed</li>
+							{% else %}
+							<li><strong>Wednesday:</strong> {{ hours[2][1] }}-{{ hours[2][2] }}</li>
+							{% endif %}
+							{% if hours[3][0] == "false" %}
+							<li><strong>Thursday:</strong> Closed</li>
+							{% else %}
+							<li><strong>Thursday:</strong> {{ hours[3][1] }}-{{ hours[3][2] }}</li>
+							{% endif %}
+							{% if hours[4][0] == "false" %}
+							<li><strong>Friday:</strong> Closed</li>
+							{% else %}
+							<li><strong>Friday:</strong> {{ hours[4][1] }}-{{ hours[4][2] }}</li>
+							{% endif %}
+							{% if hours[5][0] == "false" %}
+							<li><strong>Saturday:</strong> Closed</li>
+							{% else %}
+							<li><strong>Saturday:</strong> {{ hours[5][1] }}-{{ hours[5][2] }}</li>
+							{% endif %}
+							{% if hours[6][0] == "false" %}
+							<li style="padding-bottom: 10px"><strong>Sunday:</strong> Closed</li>
+							{% else %}
+							<li style="padding-bottom: 10px"><strong>Sunday:</strong> {{ hours[6][1] }}-{{ hours[6][2] }}</li>
+							{% endif %}
+						</ul>
+					</td>
+					<td id="right">
+						<img src="../static/imagesNew/main/img4.jpg" class="rightImg">
+					</td>
+				</tr>
+			</table>
+			</div>
+			<div class="incorrect">
+				<table>
+					<tr>
+						<td id="right" class="rightRev" style="padding-left: 0%; width: 51%">
+							<img src="../static/imagesNew/main/img4.jpg" class="rightImg">
+						</td>
+						<td id="left" style="background-color: #F1E3D4">
+							<h3 style="padding-top: 10px; font-family: 'PT Sans', sans-serif;">Hours</h3>
+						<hr style="margin: 0 auto; margin-top: 10px; margin-bottom: 10px; width: 150px;">
+						<ul style="list-style-position: inside; display:inline-table; width: 100%;list-style-type: none;">
+							{% if hours[0][0] == "false" %}
+							<li><strong>Monday:</strong> Closed</li>
+							{% else %}
+							<li><strong>Monday:</strong> {{ hours[0][1] }}-{{ hours[0][2] }}</li>
+							{% endif %}
+							{% if hours[1][0] == "false" %}
+							<li><strong>Tuesday:</strong> Closed</li>
+							{% else %}
+							<li><strong>Tuesday:</strong> {{ hours[1][1] }}-{{ hours[1][2] }}</li>
+							{% endif %}
+							{% if hours[2][0] == "false" %}
+							<li><strong>Wednesday:</strong> Closed</li>
+							{% else %}
+							<li><strong>Wednesday:</strong> {{ hours[2][1] }}-{{ hours[2][2] }}</li>
+							{% endif %}
+							{% if hours[3][0] == "false" %}
+							<li><strong>Thursday:</strong> Closed</li>
+							{% else %}
+							<li><strong>Thursday:</strong> {{ hours[3][1] }}-{{ hours[3][2] }}</li>
+							{% endif %}
+							{% if hours[4][0] == "false" %}
+							<li><strong>Friday:</strong> Closed</li>
+							{% else %}
+							<li><strong>Friday:</strong> {{ hours[4][1] }}-{{ hours[4][2] }}</li>
+							{% endif %}
+							{% if hours[5][0] == "false" %}
+							<li><strong>Saturday:</strong> Closed</li>
+							{% else %}
+							<li><strong>Saturday:</strong> {{ hours[5][1] }}-{{ hours[5][2] }}</li>
+							{% endif %}
+							{% if hours[6][0] == "false" %}
+							<li style="padding-bottom: 10px"><strong>Sunday:</strong> Closed</li>
+							{% else %}
+							<li style="padding-bottom: 10px"><strong>Sunday:</strong> {{ hours[6][1] }}-{{ hours[6][2] }}</li>
+							{% endif %}
+						</ul>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div id="footer">
+			<p>Copyright © 2015 Leaf Bakery<span class="h"> — 
+				<a class="btn btn-social-icon btn-twitter btn-xs" href="
+https://twitter.com/LeafBakery">
+				<span class="fa fa-twitter"></span>
+			  </a>
+				<a class="btn btn-social-icon btn-instagram btn-xs" href="
+https://www.instagram.com/leafglutenfree/">
+				<span class="fa fa-instagram"></span>
+			  </a>
+				<a class="btn btn-social-icon btn-facebook btn-xs" href="
+https://www.facebook.com/Leaf-Gluten-free-BakeryRestaurant-494401784066601/?ref=hl">
+				<span class="fa fa-facebook"></span>
+			  </a>
+				</span>
+			</p>
+		</div>
+	</div>
+</body>
+
+</html>

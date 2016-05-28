@@ -1,0 +1,40 @@
+<nav class="navbar navbar-default navbar-custom" id="navBarTop">
+    <div class="container-fluid">
+        <div id="fogNav"></div>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Leaf</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="menu">Menu<span class="sr-only">(current)</span></a> </li>
+
+                <li class="active"><a href="order">Order<span class="sr-only">(current)</span></a> </li>
+
+                <li class="active"><a href="events">Events<span class="sr-only">(current)</span></a> </li>
+
+                <li class="active"><a href="/directions">Directions<span class="sr-only">(current)</span></a></li>
+                
+                <li class="active"><a href="/reservations">Reservations<span class="sr-only">(current)</span></a></li>
+                
+                <li class="active"><a href="contact">Contact us<span class="sr-only">(current)</span></a> </li>
+                
+                <li class="active"><a href="/reviews">Reviews<span class="sr-only">(current)</span></a></li>
+                
+                <li class="active"><a href="/loyalty">Leaf Loyalty<span class="sr-only">(current)</span></a></li>
+
+                <li class="active"><a href="/chef">Our Chef<span class="sr-only">(current)</span></a></li>
+            </ul>
+            {% if menupage %}
+            	<ul class="nav navbar-nav navbar-right">
+					<li><a href="/download" id="navbtn" class="btn btn-primary">Printable Menu</a></li>
+            	</ul>
+            {% endif %}
+        </div>
+    </div>
+</nav>

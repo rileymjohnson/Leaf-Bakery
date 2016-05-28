@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/faviconnew.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/chart.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/list.js"></script>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+    <div class="container">
+        <h5>Delete Item</h5>
+        <select id="category">
+        	<option disabled selected value="">
+            	What Category
+            </option>
+	        <option value="appetizers">Appetizer</option>
+	        <option value="soups">Soup</option>
+	        <option value="salads">Salad</option>
+	        <option value="kids">Kids Menu</option>
+	        <option value="entrees">Entree</option>
+	        <option value="breads">Bread</option>
+	        <option value="drinks">Drink</option>
+	        <option value="desserts">Dessert</option>
+        </select>
+        <div id="items">
+        </div>
+        <button class="btn" id="submit" style="display: none; margin-bottom: 20px">Submit</button>
+    <script>
+    $("#category").change(function() {
+    	$.get("/admin/api/deletecategory", {category: $("#category").val()}, function(dat) {
+    		var data = JSON.parse(dat);
+    		if (data.length == 0) {
+    			$("#items").html("<p>There are no items in this category")
+    		}
+			var option = "";
+			for (var i=0;i<data.length;i++){
+			   option += "<p><input name='item' type='radio' id='radio" + data[i].id + "' value='" + data[i].id + "' /><label for='radio" + data[i].id + "'>" + data[i].name + "</label></p>";
+			}
+			$("#items").html(option)
+			$("#submit").show()
+    	})
+    })
+    $("#submit").click(function() {
+    	var category = $("#category").val()
+    	var item = $("input[name=item]:checked").val()
+    	if (category) {
+    		if (item) {
+    			$.post("/admin/api/deleteitem", {category:category, item:item}, function(data) {
+    				if (data == "true") {
+    					Materialize.toast("the item was successfully deleted", 4000)
+    					$("#items").html("<div></div>")
+    					$("#submit").hide()
+    					$('#category').val( $('#category').prop('defaultSelected') );
+    					$('#category').material_select();
+    				} else {
+    					Materialize.toast("the item was not deleted", 4000)
+    				}
+    			})
+    		} else {
+    			Materialize.toast("please pick an item", 4000)
+    		}
+    	} else {
+    		Materialize.toast("Please pick a category", 4000)
+    	}
+    })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+          });
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+
+</html>

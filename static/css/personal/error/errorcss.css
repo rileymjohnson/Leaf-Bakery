@@ -1,0 +1,51 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+html {
+    font-family: roboto;
+}
+@media screen and (min-width: 768px) {
+    .error-image {
+        float: left;
+        margin-left: 100px;
+        margin-top: 85px;
+    }
+    .error-robot {
+        height: 500px;
+        width: 500pxl
+    }
+    .error-body {
+        float: left;
+        margin-top: 100px;
+        margin-left: 100px;
+    }
+    .error-text-top {
+        margin-top: 100px;
+    }
+    .error-text-mid {
+
+    }
+    .shone {
+        font-size: 20pt;
+    }
+    .hone {
+        font-size: 45pt;
+    }
+    .pone {
+        font-size: 24pt;
+    }
+    .divider-line {
+        margin-top: -17px;
+        height: 1px;
+        width: 350px;
+        background-color: #717171;
+        border-bottom: 1px solid #313030;
+    }
+}
+@media screen and (max-width: 480px) {
+    .error-image {
+        margin-left: 0px;
+    }
+    .error-robot {
+        height: 250px;
+        width: 250px;
+    }
+}

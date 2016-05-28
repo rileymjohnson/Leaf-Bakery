@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Leaf</title>
+	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../static/css/awesome.css">
+<link rel="stylesheet" href="../static/css/social.css">
+	<link href="../static/css/personal/style.css" rel="stylesheet">
+	<link href="../static/css/personal/menu/style.css" rel="stylesheet">
+	<link rel='shortcut icon' href='../static/favicon/faviconnew.png' type='image/x-icon'/ >
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body id="body">
+	<div id="wrapper">
+		{% include "nav.html" %}
+		<div class="container-fluid">
+			<div class="row" style="margin-top: 70px;">
+				<div class="col-lg-12 text-center">
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-body" style="margin: -2px;">
+
+					<div class="row">
+						<div class="col-sm-6 col-md-3">
+							<div class="thumbnail">
+								<img src="../static/menu/appetizers/img8.jpg" onclick="go('/category?type=appetizers')" class="linkImg">
+							</div>
+							<div class="caption">
+								<h3 style="color: black" onclick="go('/category?type=appetizers')" class="linkImg">Appetizers</h3>
+								<p>A whole variety of delicious appetizers.</p>
+								<p>
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-3">
+							<div class="thumbnail">
+								<img src="../static/menu/soups/img4.jpg" onclick="go('category?type=soups')" class="linkImg">
+							</div>
+							<div class="caption">
+								<h3 style="color: black" onclick="go('category?type=soups')" class="linkImg">Soups</h3>
+								<p>A cornucopia of the most succulent soups.</p>
+								<p>
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-3">
+							<div class="thumbnail">
+								<img src="../static/menu/salads/img2.jpg" onclick="go('/category?type=salads')" class="linkImg">
+							</div>
+							<div class="caption">
+								<h3 style="color: black" onclick="go('/category?type=salads')" class="linkImg">Salads</h3>
+								<p>Delicious and pretty salads.</p>
+								<p>
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-3">
+							<div class="thumbnail">
+								<img src="../static/menu/kids/img7.jpg" onclick="go('/category?type=kids')" class="linkImg">
+							</div>
+							<div class="caption">
+								<h3 style="color: black" onclick="go('/category?type=kids')" class="linkImg">Kid's Menu</h3>
+								<p>There's even stuff for kids.</p>
+								<p>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6 col-md-3">
+							<div class="thumbnail">
+								<img src="../static/menu/entrees/img1.jpg" onclick="go('/category?type=entrees')" class="linkImg">
+							</div>
+							<div class="caption">
+								<h3 style="color: black" onclick="go('/category?type=entrees')" class="linkImg">Entrees</h3>
+								<p>Sweet and savory entrees.</p>
+								<p>
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-3">
+							<div class="thumbnail">
+								<img src="../static/menu/breads/img2.jpg" onclick="go('/category?type=breads')" class="linkImg">
+							</div>
+							<div class="caption">
+								<h3 style="color: black" onclick="go('/category?type=breads')" class="linkImg">Breads</h3>
+								<p>Our best baked breads.</p>
+								<p>
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-3">
+							<div class="thumbnail">
+								<img src="../static/menu/drinks/img8.jpg" onclick="go('/category?type=drinks')" class="linkImg">
+							</div>
+							<div class="caption">
+								<h3 style="color: black" onclick="go('/category?type=drinks')" class="linkImg">Drinks</h3>
+								<p>A variety of drinks to quench your thirst.</p>
+								<p>
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-3">
+							<div class="thumbnail">
+								<img src="../static/menu/desserts/img1.jpg" onclick="go('/category?type=desserts')" class="linkImg">
+							</div>
+							<div class="caption">
+								<h3 style="color: black" onclick="go('/category?type=desserts')" class="linkImg">Desserts</h3>
+								<p>Scrumptious desserts for all ages.</p>
+								<p>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="content">
+		</div>
+		</div>
+		<div id="footer">
+			<p>Copyright © 2015 Leaf Bakery<span class="h"> — 
+				<a class="btn btn-social-icon btn-twitter btn-xs" href="
+https://twitter.com/LeafBakery">
+				<span class="fa fa-twitter"></span>
+			  </a>
+				<a class="btn btn-social-icon btn-instagram btn-xs" href="
+https://www.instagram.com/leafglutenfree/">
+				<span class="fa fa-instagram"></span>
+			  </a>
+				<a class="btn btn-social-icon btn-facebook btn-xs" href="
+https://www.facebook.com/Leaf-Gluten-free-BakeryRestaurant-494401784066601/?ref=hl">
+				<span class="fa fa-facebook"></span>
+			  </a>
+				</span>
+			</p>
+		</div>
+		</div>
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/bootstrap.min.js"></script>
+		<script src="../static/js/fog.js"></script>
+		<script src="../static/js/blur.js"></script>
+		<script src="../static/js/personal/background.js"></script>
+		<script src="../static/js/personal/menuLinks.js"></script>
+</body>
+
+</html>

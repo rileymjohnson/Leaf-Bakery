@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel=
+    "stylesheet">
+    <link href="../../static/admin/css/materialize.min.css" media=
+    "screen,projection" rel="stylesheet" type="text/css">
+    <link href="../../static/admin/css/personal/style.css" rel="stylesheet"
+    type="text/css">
+    <link href="../../static/admin/css/personal/random.css" rel="stylesheet"
+    type="text/css">
+    <link href="../../static/admin/css/cropper.min.css" rel="stylesheet" type=
+    "text/css">
+    <link href='../../static/favicon/faviconnew.png' rel='shortcut icon' type=
+    'image/x-icon'>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <script src="../../static/admin/js/jquery.min.js" type="text/javascript">
+    </script>
+    <script src="../../static/admin/js/materialize.min.js" type=
+    "text/javascript">
+    </script>
+    <script src="../../static/admin/js/cropper.min.js" type="text/javascript">
+    </script>
+    <title>Admin Panel</title>
+</head>
+<body>
+    {% include "admin/adminnav.html" %}
+    <div class="container">
+    	<h5>
+    	Add Item
+    	</h5>
+        <div id="imageContainer"><img id="image" style="max-width: 100%"></div>
+        <form action="#" id="form">
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Picture</span> <input accept="image/*" id="theFile"
+                    type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path" type="text">
+                </div>
+            </div>
+            <div class="input-field">
+                <select id="category">
+                    <option disabled selected value="">
+                        What Category
+                    </option>
+                    <option value="appetizers">
+                        Appetizers
+                    </option>
+                    <option value="soups">
+                        Soups
+                    </option>
+                    <option value="salads">
+                        Salads
+                    </option>
+                    <option value="kids">
+                        Kids Menu
+                    </option>
+                    <option value="entrees">
+                        Entrees
+                    </option>
+                    <option value="breads">
+                        Breads
+                    </option>
+                    <option value="drinks">
+                        Drinks
+                    </option>
+                    <option value="desserts">
+                        Desserts
+                    </option>
+                </select> <label>Category</label>
+            </div>
+            <div class="input-field">
+                <input id="name" type="text"> <label for=
+                "first_name">Name</label>
+            </div>
+            <div class="input-field">
+                <input id="price" type="number"> <label for=
+                "first_name">Price</label>
+            </div>
+            <div class="input-field">
+                <textarea class="materialize-textarea" id=
+                "shortDes"></textarea> <label for="textarea1">Short
+                Description</label>
+            </div>
+            <div class="input-field">
+                <textarea class="materialize-textarea" id="longDes"></textarea>
+                <label for="textarea1">Long Description</label>
+            </div>
+            <div class="progress" id="progress" style="display: none">
+			      <div class="indeterminate"></div>
+			  </div>
+            <div class="input-field" style="margin-bottom: 20px">
+            <a class="waves-effect waves-light btn" id="submit">Submit</a>
+            <button class="waves-effect waves-light btn red" id="reset1" type="reset">
+            	Reset
+            </button>
+            </div>
+        </form>
+    </div>
+    <script>
+    	var changed = false;
+        theCrop = $('#image').cropper({
+          aspectRatio: 750 / 500
+        });
+        $("#reset1").click(function() {
+        	$("#imageContainer").hide()
+        	changed = false
+        })
+
+        $("#submit").click(function() {
+        	$("#progress").show()
+                var category = $("#category").val()
+        	var price = parseFloat(Math.round($("#price").val() * 100) / 100).toFixed(2);
+        	var name = $("#name").val()
+        	var shortDes = $("#shortDes").val()
+        	var longDes = $("#longDes").val()
+        	if (category) {
+        		if (price && price != 0.00) {
+        			if (name) {
+        				if (shortDes) {
+        					if (longDes) {
+        						if (!changed) {
+					        		Materialize.toast("Please pick an image", 4000)
+					        		$("#progress").hide()
+					        		return false;
+					        	}
+
+					        	var re = /(?:\.([^.]+))?$/;
+					            var t = re.exec($("#theFile").val())[1]
+					            if (t == "jpg") {
+					                t = "jpeg"
+					            }
+					            var dataUrl = theCrop.cropper('getCroppedCanvas',{
+					                height: 500,
+					                width: 750
+					            }).toDataURL("image/" + t)
+					            dataUrl = dataUrl.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+					            $.ajax({
+					                url: 'https://api.imgur.com/3/upload.json',
+					                type: 'POST',
+					                headers: {
+					                    Authorization: 'Client-ID 2db4c2f200e876b'
+					                },
+					                data: {
+					                    type: 'base64',
+					                    name: 'neon.jpg',
+					                    title: 'Nebula',
+					                    description: 'Made using cropper',
+					                    image: dataUrl
+					                },
+					                dataType: 'json'
+					            }).success(function(data) {
+					                url = data.data.link.replace(/^http:\/\//i, 'https://');
+					                $.post("/admin/api/additem", {
+						        		category: category,
+						        		name: name,
+						        		shortDes: shortDes,
+						        		longDes: longDes,
+						        		price: price,
+						        		location: url
+						        	}, function(data) {
+						        		$("#progress").hide()
+						        		if (data == "true") {
+						        			Materialize.toast("The item was added successfully", 4000)
+						        			document.getElementById("form").reset();
+						        			$("#imageContainer").hide()
+						        			changed = false
+						        		} else {
+						        			Materialize.toast("The item was not added", 4000)
+						        		}
+						        	})
+					                }).error(function() {
+					                Materialize.toast("Could not upload the picture. Please try again Later.", 4000)
+					                $("#progress").hide()
+					            });
+        					} else {
+        						Materialize.toast("Please enter a long description", 4000)
+        						$("#progress").hide()
+        					}
+        				} else {
+        					Materialize.toast("Please enter a short description", 4000)
+        					$("#progress").hide()
+        				}
+        			} else {
+        				Materialize.toast("Please pick a name", 4000)
+        				$("#progress").hide()
+        			}
+        		} else {
+        			Materialize.toast("Please pick a price", 4000)
+        			$("#progress").hide()
+        		}
+        	} else {
+        		Materialize.toast("Please pick a category", 4000)
+        		$("#progress").hide()
+        	}
+        })
+
+    var $image = $('#image');
+    var URL = window.URL || window.webkitURL;
+    var blobURL;
+
+    if (URL) {
+    $("#theFile").change(function () {
+      $("#imageContainer").show()
+      changed = true;
+      fileName = this.value.split(/(\\|\/)/g).pop()
+      var files = this.files;
+      var file;
+
+      if (!$image.data('cropper')) {
+        return;
+      }
+
+      if (files && files.length) {
+        file = files[0];
+
+        if (/^image\/\w+$/.test(file.type)) {
+          blobURL = URL.createObjectURL(file);
+          $image.one('built.cropper', function () {
+
+            // Revoke when load complete
+            URL.revokeObjectURL(blobURL);
+          }).cropper('reset').cropper('replace', blobURL);
+        } else {
+          window.alert('Please choose an image file.');
+        }
+      }
+    });
+    } else {
+    $inputImage.prop('disabled', true).parent().addClass('disabled');
+    }
+    $("#finishedCropping").click(function() {
+    })
+    </script> 
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+          });
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+</html>

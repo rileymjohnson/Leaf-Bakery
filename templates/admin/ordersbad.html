@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/chart.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/list.js"></script>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+
+    <div class="container">
+        <h3 style="text-align: center">Orders</h3>
+        <div id="users">
+        <div class="input-field">
+            <input class="search validate disabled" placeholder="Search By Name" type="text" id="disabled" disabled />
+        </div>
+        <table class="striped responsive-table">
+        <thead>
+          <tr>
+              <th>Type</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Notes</th>
+              <th>Items</th>
+              <th>Options</th>
+          </tr>
+        </thead>
+      </table>
+            There are no orders at this time
+    </div>
+    </div>
+    <script>
+        var options = {
+          valueNames: [ 'name']
+        };
+
+        var userList = new List('users', options);
+    </script>
+    <script>
+        function deleteItem(i) {
+            alert(i)
+        }
+    </script>
+    <script>
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+
+</html>

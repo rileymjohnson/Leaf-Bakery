@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Leaf</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/awesome.css">
+<link rel="stylesheet" href="../static/css/social.css">
+    <link href="../static/css/personal/style.css" rel="stylesheet">
+    <link href="../static/css/personal/test.css" rel="stylesheet">
+    <link rel='shortcut icon' href='../static/favicon/faviconnew.png' type='image/x-icon'/ >
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body id="body">
+    <div id="wrapper">
+        {% include "nav.html" %}
+        <div class="container-fluid">
+            <div class="row" style="margin-top: 70px;">
+                <div class="col-lg-12 text-center">
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body" style="margin: -2px;">
+                    <div class="col" id="one">
+                        <div class="content notToday">
+                            <div class="top">
+                                <div class="day">
+                                    02
+                                </div>
+                                <div class="date">
+                                    February<br><span class="year">2016</span>
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <h1>Event Title</h1>
+                                <p>Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" id="two">
+                        <div class="content mcontent notToday">
+                            <div class="top">
+                                <div class="day">
+                                    02
+                                </div>
+                                <div class="date">
+                                    February<br><span class="year">2016</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" id="three">
+                        <div class="content today">
+                            <div class="top">
+                                <div class="day">
+                                    02
+                                </div>
+                                <div class="date">
+                                    February<br><span class="year">2016</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div id="content">
+		</div>
+		<div id="footer">
+            <p>Copyright © 2015 Leaf Bakery<span class="h"> — 
+                <a class="btn btn-social-icon btn-twitter btn-xs" href="
+https://twitter.com/LeafBakery">
+                <span class="fa fa-twitter"></span>
+              </a>
+                <a class="btn btn-social-icon btn-instagram btn-xs" href="
+https://www.instagram.com/leafglutenfree/">
+                <span class="fa fa-instagram"></span>
+              </a>
+                <a class="btn btn-social-icon btn-facebook btn-xs" href="
+https://www.facebook.com/Leaf-Gluten-free-BakeryRestaurant-494401784066601/?ref=hl">
+                <span class="fa fa-facebook"></span>
+              </a>
+                </span>
+            </p>
+        </div>
+        </div>
+        <script src="../static/js/jquery.js"></script>
+        <script src="../static/js/bootstrap.min.js"></script>
+        <script src="../static/js/fog.js"></script>
+        <script src="../static/js/blur.js"></script>
+        <script src="../static/js/personal/background.js"></script>
+        <script src="../static/js/toast.js"></script>
+        <script>
+            //form verification functions
+            function validateEmail(email) {
+                var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+                return re.test(email);
+            }
+            function validateSubject(subject) {
+                if (subject != "") {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            
+            function go() {
+                var email = validateEmail(document.getElementById("email").value);
+                var message = validateSubject(document.getElementById("message").value)
+                if (!email && !message) {
+                    $.toaster('This is not a proper email', 'Error', 'danger');
+                    $.toaster('Please include a message', 'Error', 'danger');
+                }
+                else if (!email && message) {
+                    $.toaster('This is not a proper email', 'Error', 'danger');
+                }
+                else if (email && !message) {
+                    $.toaster('Please include a message', 'Error', 'danger');
+                }
+                else {
+                    document.getElementById("contact").submit()
+                }
+            }
+        </script>
+</body>
+
+</html>

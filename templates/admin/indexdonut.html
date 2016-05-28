@@ -1,0 +1,67 @@
+<script type="text/javascript">
+    	$(function () {
+		    $('#donutind').highcharts({
+		        chart: {
+		            plotBackgroundColor: null,
+		            plotBorderWidth: null,
+		            plotShadow: false,
+		            type: 'pie',
+		            backgroundColor: '#f5f5f5'
+		        },
+                credits: {
+                    enabled: false
+                },
+		        title: {
+		            text: null
+		        },
+                subtitle: {
+                    text: null
+                },
+		        tooltip: {
+		            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+		        },
+		        plotOptions: {
+		            pie: {
+		                allowPointSelect: false,
+		                cursor: 'pointer',
+		                dataLabels: {
+		                    enabled: false,
+		                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+		                    style: {
+		                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+		                    }
+		                }
+		            }
+		        },
+		        series: [{
+		            name: 'Brands',
+		            colorByPoint: true,
+		            data: [{
+		                name: 'Appetizers',
+		                y: {{ amount["appetizers"] }}
+		            }, {
+		                name: 'Soups',
+		                y: {{ amount["soups"] }}
+		            }, {
+		                name: 'Salads',
+		                y: {{ amount["salads"] }}
+		            }, {
+		                name: 'Kids Menu',
+		                y: {{ amount["kids"] }}
+		            }, {
+		                name: 'Entrees',
+		                y: {{ amount["entrees"] }}
+		            }, {
+		                name: 'Breads',
+		                y: {{ amount["breads"] }}
+		            }, {
+		            	name: 'Drinks',
+		            	y: {{ amount["drinks"] }}
+		            }, {
+		            	name: 'Desserts',
+		            	y: {{ amount["desserts"] }}
+		            }]
+		        }]
+		    });
+		});
+    </script>

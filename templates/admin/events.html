@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/css/chosen.min.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/js/chosen.jquery.min.js"></script>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+
+    <div class="container">
+        <h5>Change admin email</h5>
+        <div class="file-field input-field">
+          <div class="btn" id="emailupdate">
+            <span>Update</span>
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Admin email address..." value="{{ email }}" id="email">
+          </div>
+        </div>
+        <h5>Change Events</h5>
+        <div class="row">
+            <div class="col s12">
+              <ul class="tabs">
+                <li class="tab col s3"><a class="active" href="#test1">Add Event</a></li>
+                <li class="tab col s3"><a href="#test2">Delete Event</a></li>
+                <li class="tab col s3"><a href="#test4">Modify Event</a></li>
+              </ul>
+            </div>
+            <div id="test1" class="col s12">
+                <form id="addform">
+                    <div class="input-field">
+                        <label>Name:</label>
+                        <input type="text" id="addname">
+                    </div>
+                    <div class="input-field">
+                        <label>Date:</label>
+                        <input type="date" class="datepicker" id="picker">
+                    </div>
+                    <div class="input-field">
+                        <textarea class="materialize-textarea" id="adddescription"></textarea>
+                        <label>Description</label>
+                    </div>
+                    <div class="input-field">
+                        <a class="waves-effect waves-light btn" id="addsubmit">Submit</a>
+                    </div>
+                </form>
+            </div>
+            <div id="test2" class="col s12">
+                <div class="input-field">
+                    <select class="browser-default chosen" id="deletename" date-placeholder="Pick an event...">
+                        <option value=""></option>
+                        {% for event in events %}
+                        <option value="{{ event['id'] }}">{{ event['name'] }} - {{ event['month'] }}/{{ event['day'] }}/{{ event['year'] }}</option>    
+                        {% endfor %}
+                    </select>
+                </div>
+                    <div class="input-field">
+                            <a class="waves-effect waves-light btn" id="deletesubmit">Delete</a>
+                        </div>
+                </div>
+            </div>
+            <div id="test4" class="col s12">
+                <div class="input-field">
+                    <select class="browser-default chosen" id="changename" date-placeholder="Pick an event...">
+                        <option value=""></option>
+                        {% for event in events %}
+                        <option value="{{ event['id'] }}">{{ event['name'] }} - {{ event['month'] }}/{{ event['day'] }}/{{ event['year'] }}</option>    
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="changehidden" style="display: none">
+                    <form id="changeform">
+                    <div class="input-field">
+                        <label>Name:</label>
+                        <input type="text" id="changenamebox">
+                    </div>
+                    <div class="input-field">
+                        <label>Date:</label>
+                        <input type="date" class="datepicker" id="picker1">
+                    </div>
+                    <div class="input-field">
+                        <textarea class="materialize-textarea" id="changedescription"></textarea>
+                        <label>Description</label>
+                    </div>
+                    <div class="input-field">
+                        <a class="waves-effect waves-light btn" id="changesubmit">Submit</a>
+                    </div>
+                </form>
+                </div>
+            </div>
+          </div>
+    <script>
+        $("#emailupdate").click(function() {
+            $.post("/admin/api/email?email=" + $("#email").val(), function(data) {
+                if (data == "true") {
+                    Materialize.toast("The admin email address was updated", 4000)
+                } else {
+                    Materialize.toast("The admin email address was not updated", 4000)
+                }
+            })
+        })
+        function updateChosen(i) {
+            $.get("/admin/api/getevents", function(dat) {
+                var data = JSON.parse(dat)
+                var ins = "<option value=''></option>"
+                for (var n = 0; n < data.length; n++) {
+                    ins += "<option value='" + data[n]['id'] + "'>" + data[n]['name'] + " - " + data[n]['month'] + "/" + data[n]['day'] + "/" + data[n]['year'] + "</option>"
+                }
+                $("#" + i).empty()
+                var newOption = $(ins);
+                $('#' + i).append(newOption);
+                $("#" + i).trigger("chosen:updated");
+            })
+        }     
+    </script>
+    <script>
+        function numToDate(num) {
+            var data = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+            return data[num-1]
+        }
+        $("#changename").change(function() {
+            $("#changehidden").show()
+            $.get("/admin/api/getchange?id=" + $("#changename").val(), function(dat) {
+                var data = JSON.parse(dat)[0]
+                $("#changedescription").val(data['des'])
+                $("#changenamebox").val(data['name'])
+                $("#picker1").val(data['day'] + " " + numToDate(data['month']) + ", " + data['year'])
+            })
+        })
+        $("#changesubmit").click(function() {
+            if ($("#changenamebox").val()) {
+                if ($("#picker1").val()) {
+                    if ($("#changedescription").val()) {
+                        var name = $("#changenamebox").val()
+                        var description = $("#changedescription").val()
+                        var d = new Date($("#picker1").val())
+                        var day = d.getDate()
+                        var month = d.getMonth() + 1
+                        var year = d.getFullYear()
+                        var i = $("#changename").val()
+                        $.post("/admin/api/changeevent", {name: name, day: day, month: month, year: year, id: i, description: description}, function(data) {
+                            if (data == "true") {
+                                Materialize.toast("The event was updated", 4000)
+                                updateChosen("changename")
+                                updateChosen("deletename")
+                                $("#changeform")[0].reset()
+                            } else {
+                                Materialize.toast("The event was not updated", 4000)
+                            }
+                        })
+                    } else {
+                        Materialize.toast("Please enter a description", 4000)
+                    }
+                } else {
+                    Materialize.toast("Please pick a date", 4000)
+                }
+            } else {
+                Materialize.toast("Please enter a name", 4000)
+            }
+        })
+    </script>
+    <script>
+        $("#deletesubmit").click(function() {
+            if ($("#deletename").val()) {
+                $.post("/admin/api/deleteevent", {id: $("#deletename").val()}, function(data) {
+                    if (data == "true") {
+                        Materialize.toast("The event was deleted", 4000)
+                        updateChosen("changename")
+                        updateChosen("deletename")
+                        $("#changeform")[0].reset()
+                    } else {
+                        Materialize.toast("The event was not deleted", 4000)
+                    }
+                })
+            } else {
+                Materialize.toast("Please pick an event", 4000)
+            }
+        })
+        var datep = $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+          });
+        var picker = datep.pickadate('picker')
+        $("#addsubmit").click(function() {
+            if ($("#addname").val()) {
+                if (picker.get('select')) {
+                    if ($("#adddescription").val()) {
+                        var date = picker.get('select');
+                        var year = date.year
+                        var day = date.date
+                        var month = date.month + 1
+                        var name = $("#addname").val()
+                        var description = $("#adddescription").val()
+                        $.post("/admin/api/addevent", {year: year, day: day, month: month, name: name, description: description}, function(data) {
+                            if (data == "true") {
+                                $("#addform")[0].reset()
+                                Materialize.toast("The event was added", 4000)
+                                updateChosen("changename")
+                                updateChosen("deletename")
+                            } else {
+                                Materialize.toast("The event was not added", 4000)
+                            }
+                        })
+                    } else {
+                        Materialize.toast("Please enter a description", 4000)
+                    }
+                } else {
+                    Materialize.toast("Please enter a date", 4000)
+                }
+            } else {
+                Materialize.toast("Please enter a name", 4000)
+            }
+        })
+        $(".chosen").chosen();
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,228 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+* {
+    font-family: 'Oswald', sans-serif;
+}
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background-color: white;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    }
+h1, h2, h3, h4, h5, h6, p, li{
+    color: white;
+}
+* {
+    margin: 0;
+}
+html, body {
+    height: 100%;
+}
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto;
+}
+.footer {
+    background-color: black;
+    opacity: 1;
+    margin-top: 50px;
+    padding-bottom: 1px;
+}
+.footer p {
+    padding-top: 7px;
+}
+#imageC {
+    width: 100%;
+}
+.carousel {
+}
+.panel-body {
+    background-color: white;
+    border-width: 0px;
+}
+.panel-body p, h1 {
+    color: black;
+    opacity: .75;
+}
+.lead {
+    font-size: 20px;
+}
+.navbar-default {
+    background-color: transparent;
+    opacity: 1;
+    border-width: 0px;
+    z-index: 1;
+    width: 100%;
+    border-radius: 0px;
+    margin-bottom: 0px;
+}
+.navbar-default ul {
+    z-index: 5;
+}
+/* title */
+.navbar-default .navbar-brand {
+    color: white;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: white;
+}
+/* link */
+.navbar-default .navbar-nav > li > a {
+    color: white;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: white;
+}
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus {
+    color: white;
+    background-color: black;
+}
+.navbar-default .navbar-nav > .open > a, 
+.navbar-default .navbar-nav > .open > a:hover, 
+.navbar-default .navbar-nav > .open > a:focus {
+    color: white;
+    background-color: white;
+}
+/* caret */
+.navbar-default .navbar-nav > .dropdown > a .caret {
+    border-top-color: white;
+    border-bottom-color: white;
+}
+@media screen and (max-width: 480px) {
+    .lead {
+        font-size: 15px;
+    }
+}
+.overlay {
+background: url(http://lorempixel.com/310/310/cats/) top left no-repeat;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 10;
+pointer-events: none;
+  }
+     @media (min-width: 768px) and (max-width: 979px) {
+      .overlay{
+
+         width:50%;
+        height:50%;
+  }    
+ }
+
+  @media (max-width: 767px) {
+     .overlay{
+
+  width:50%;
+  height:50%;
+  }
+
+  }
+@media (max-width: 480px) {
+   .overlay{
+   width:50%;
+  height:50%;
+
+  }
+}
+.main-text
+{
+    position: absolute;
+    top: 50px;
+    width: 96.66666666666666%;
+    color: #FFF;
+}
+.btn-min-block
+{
+    min-width: 170px;
+    line-height: 26px;
+}
+.btn-clear
+{
+    color: #FFF;
+    background-color: transparent;
+    border-color: #FFF;
+    margin-right: 15px;
+}
+.btn-clear:hover
+{
+    color: #000;
+    background-color: #FFF;
+}
+.carousel {
+}
+#bottomText {
+    margin: 0 auto;
+    width: 65%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#bottomText h2, p {
+    color: black;
+    text-align: center;
+}
+.btn {
+    background-color: transparent;
+    color: white;
+    border-color: white;
+    font-size: 15px;
+}
+html,
+body {
+	margin:0;
+	padding:0;
+	height:100%;
+}
+#wrapper {
+	min-height:100%;
+	position:relative;
+}
+#header {
+	background:#ededed;
+	padding:10px;
+}
+#content {
+	padding-bottom:40px; /* Height of the footer element */
+}
+#footer {
+	background:black;
+	width:100%;
+	height:40px;
+	position:absolute;
+	bottom:0;
+	left:0;
+}
+#footer p {
+    text-align: center;
+    color: white;
+    margin-top: 10px;
+}
+@media screen and (max-width: 350px) {
+    #footer p {
+	font-size: 11px;
+	}
+}
+#row1 {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#text1 {
+    background-color: #F9F2EC;
+    margin-left: -10px;
+}
+#img1 img {
+    widows: 50px;
+}

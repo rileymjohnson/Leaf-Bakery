@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/chart.js"></script>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+
+    <div class="container">
+        <ul class="collection">
+    <li class="collection-item avatar" onclick="window.location.href = '/admin/stats/donutitem?t=appetizers'">
+      <img src="../../static/admin/images/icons/food/appetizer.png" alt="" class="circle">
+      <span class="title">Appetizers</span>
+      <p>Percent of each appetizer bought. <br>
+         number of appetizers: {{ appetizers }}
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+    </li>
+        <li class="collection-item avatar" onclick="window.location.href = '/admin/stats/donutitem?t=soups'">
+      <img src="../../static/admin/images/icons/food/soup.png" alt="" class="circle">
+      <span class="title">Soups</span>
+      <p>Percent of each soups bought. <br>
+         number of soups: {{ soups }}
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+    </li>
+            <li class="collection-item avatar" onclick="window.location.href = '/admin/stats/donutitem?t=salads'">
+      <img src="../../static/admin/images/icons/food/salad.png" alt="" class="circle">
+      <span class="title">Salads</span>
+      <p>Percent of each salads bought. <br>
+         number of salads: {{ salads }}
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+    </li>
+            <li class="collection-item avatar" onclick="window.location.href = '/admin/stats/donutitem?t=kids'">
+      <img src="../../static/admin/images/icons/food/kid.png" alt="" class="circle">
+      <span class="title">Kids Menu</span>
+      <p>Percent of each kids menu bought. <br>
+         number of kids menu: {{ kids }}
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+    </li>
+            <li class="collection-item avatar" onclick="window.location.href = '/admin/stats/donutitem?t=entrees'">
+      <img src="../../static/admin/images/icons/food/entree.png" alt="" class="circle">
+      <span class="title">Entrees</span>
+      <p>Percent of each entrees bought. <br>
+         number of entrees: {{ entrees }}
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+    </li>
+            <li class="collection-item avatar" onclick="window.location.href = '/admin/stats/donutitem?t=breads'">
+      <img src="../../static/admin/images/icons/food/bread.png" alt="" class="circle">
+      <span class="title">Breads</span>
+      <p>Percent of each breads bought. <br>
+         number of breads: {{ breads }}
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+    </li>
+            <li class="collection-item avatar" onclick="window.location.href = '/admin/stats/donutitem?t=drinks'">
+      <img src="../../static/admin/images/icons/food/drink.png" alt="" class="circle">
+      <span class="title">Drinks</span>
+      <p>Percent of each drinks bought. <br>
+         number of drinks: {{ drinks }}
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+    </li>
+    <li class="collection-item avatar" onclick="window.location.href = '/admin/stats/donutitem?t=desserts'">
+      <img src="../../static/admin/images/icons/food/dessert.png" alt="" class="circle">
+      <span class="title">Desserts</span>
+      <p>Percent of each desserts bought. <br>
+         number of desserts: {{ desserts }}
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+    </li>
+  </ul>
+    </div>
+    <script>
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Leaf</title>
+      <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+       <link rel="stylesheet" href="../static/css/awesome.css">
+<link rel="stylesheet" href="../static/css/social.css">
+      <link href="../static/css/personal/style.css" rel="stylesheet">
+      <link href="../static/css/personal/events.css" rel="stylesheet">
+      <link rel='shortcut icon' href='../static/favicon/faviconnew.png' type='image/x-icon'/ >
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+       <style>
+           {% if twobad == "true" %}
+                #two {
+                display: none;
+           }
+           .noevent2 {
+            display: block;
+           }
+           {% endif %}
+           {% if threebad == "true" %}
+                #three {
+                display: none;
+           }
+           .noevent3 {
+            display: block;
+           }
+           {% endif %}
+       </style>
+   </head>
+   <body id="body">
+      <div id="wrapper">
+         {% include "nav.html" %}
+         <div class="container-fluid">
+            <div class="row" style="margin-top: 70px;">
+               <div class="col-lg-12 text-center">
+               </div>
+            </div>
+            <div class="panel panel-default">
+               <div class="panel-body" style="margin: -2px;">
+                   <div class="events">
+                      <blockquote class="event noevent2" id="noevent2">
+                           <h2 class="name">No More Events Scheduled</h2>
+                           <p class="description">There are no more events at this time. Please check back later for more information.<div class="hideLoremIpsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sapien diam, iaculis nec eros ut, molestie fringilla velit. Suspendisse mattis turpis mi, at faucibus nisl scelerisque quis. Donec eget massa massa. Pellentesque mauris sem, auctor non dui finibus, mattis bibendum augue. Sed eget felis ac lectus maximus accumsan.</div></p>
+                       </blockquote>
+                      <blockquote id="one" class="event">
+                         <h2 class="name">{{ one["name"] }}</h2>
+                         <h4 class="date">{{ one["month"] }} {{ one["day"] }}, {{ one["year"] }}</h4>
+                         <p class="description">{{ one["des"] }}</p>
+                      </blockquote>
+                      <blockquote class="event" id="two">
+                         <h2 class="name">{{ two["name"] }}</h2>
+                         <h4 class="date">{{ two["month"] }} {{ two["day"] }}, {{ two["year"] }}</h4>
+                         <p class="description">{{ two["des"] }}</p>
+                      </blockquote>
+                      <blockquote id="three" class="event">
+                         <h2 class="name">{{ three["name"] }}</h2>
+                         <h4 class="date">{{ three["month"] }} {{ three["day"] }}, {{ three["year"] }}</h4>
+                         <p class="description">{{ three["des"] }}</p>
+                      </blockquote>
+                       <blockquote class="event noevent3" id="noevent3">
+                           <h2 class="name">No More Events Scheduled</h2>
+                           <p class="description">There are no more events at this time. Please check back later for more information.<div class="hideLoremIpsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sapien diam, iaculis nec eros ut, molestie fringilla velit. Suspendisse mattis turpis mi, at faucibus nisl scelerisque quis. Donec eget massa massa. Pellentesque mauris sem, auctor non dui finibus, mattis bibendum augue. Sed eget felis ac lectus maximus accumsan.</div></p>
+                       </blockquote>
+                       
+                   </div>
+                   <div class="text-center">
+                    <div class="eventspag" style="clear: both"></div>
+                   </div>
+               </div>
+            </div>
+         </div>
+         <div id="content">
+         </div>
+         <div id="footer">
+            <p>Copyright © 2015 Leaf Bakery<span class="h"> — 
+                <a class="btn btn-social-icon btn-twitter btn-xs" href="
+https://twitter.com/LeafBakery">
+                <span class="fa fa-twitter"></span>
+              </a>
+                <a class="btn btn-social-icon btn-instagram btn-xs" href="
+https://www.instagram.com/leafglutenfree/">
+                <span class="fa fa-instagram"></span>
+              </a>
+                <a class="btn btn-social-icon btn-facebook btn-xs" href="
+https://www.facebook.com/Leaf-Gluten-free-BakeryRestaurant-494401784066601/?ref=hl">
+                <span class="fa fa-facebook"></span>
+              </a>
+                </span>
+            </p>
+        </div>
+      </div>
+      <script src="../static/js/jquery.js"></script>
+      <script src="../static/js/bootstrap.min.js"></script>
+      <script src="../static/js/fog.js"></script>
+      <script src="../static/js/blur.js"></script>
+      <script src="../static/js/personal/background.js"></script>
+      <script src="../static/js/personal/events/boot.js"></script>
+      <script>
+         $('.eventspag').bootpag({
+             total: {{ groups }}
+         }).on("page", function(event, num){
+             var query = "/events?i=" + num;
+             $.post(query, function( data ) {
+              document.getElementById("one").style.display = "";
+             document.getElementById("two").style.display = "";
+             document.getElementById("three").style.display = "";
+              dat = JSON.parse(data)
+              var l = dat.length;
+              if (l == 1) { //use this to display the no event notification
+                document.getElementById("two").style.display = "none";
+                document.getElementById("three").style.display = "none";
+                $("#noevent2").show();
+                $("#noevent3").show();
+              }
+              if (l == 2) {
+                document.getElementById("three").style.display = "none";
+                $("#noevent2").hide();
+                $("#noevent3").show();
+              }
+              if (l == 3) {
+                $("#noevent2").hide();
+                $("#noevent3").hide();
+              }
+              document.getElementById("one").childNodes[1].innerHTML = dat[0]["name"]
+              document.getElementById("one").childNodes[3].innerHTML = dat[0]["month"] + " " + dat[0]["day"] + ", " + dat[0]["year"]
+              document.getElementById("one").childNodes[5].innerHTML = dat[0]["des"]
+              document.getElementById("two").childNodes[1].innerHTML = dat[1]["name"]
+              document.getElementById("two").childNodes[3].innerHTML = dat[1]["month"] + " " + dat[1]["day"] + ", " + dat[1]["year"]
+              document.getElementById("two").childNodes[5].innerHTML = dat[1]["des"]
+              document.getElementById("three").childNodes[1].innerHTML = dat[2]["name"]
+              document.getElementById("three").childNodes[3].innerHTML = dat[2]["month"] + " " + dat[2]["day"] + ", " + dat[2]["year"]
+              document.getElementById("three").childNodes[5].innerHTML = dat[2]["des"]
+            });
+         });
+                 
+      </script>
+   </body>
+</html>

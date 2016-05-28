@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/chart.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/list.js"></script>
+    <title>Admin Panel</title>
+    <style>
+        @media only screen and (max-width: 992px) {
+            #backButton {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+
+    <div class="container">
+        <a class="waves-effect waves-light btn" href="/admin/orders" id="backButton"><i class="material-icons left">arrow_back</i>Go Back</a>
+        <table class="striped responsive-table">
+        <thead>
+          <tr>
+              <th>Item</th>
+              <th>Notes</th>
+              <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody class="list">
+            {% for order in orders %}
+          <tr>
+              <td>{{ order['real'] }}</td>
+              <td>{{ order['notes'] }}</td>
+              <td>{{ order['amount'] }}</td>
+          </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <script>
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+
+</html>

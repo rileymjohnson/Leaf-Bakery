@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/chart.js"></script>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+
+    <div class="container">
+        <h3 style="text-align: center">Total Items ordered</h3>
+        <canvas id="canvas" height="290" width="600"></canvas>
+    </div>
+    <script>
+        var barChartData = {
+		labels : [
+            {% for name in names %}
+            "{{ name }}"
+            {% if not loop.last %}
+                ,
+            {% endif %}
+            {% endfor %}
+        ],
+		datasets : [
+			{
+				fillColor : "rgba(220,220,220,0.5)",
+				strokeColor : "rgba(220,220,220,0.8)",
+				highlightFill: "rgba(220,220,220,0.75)",
+				highlightStroke: "rgba(220,220,220,1)",
+				data : [
+                    {% for name in ar %}
+            "{{ name }}"
+            {% if not loop.last %}
+                ,
+            {% endif %}
+            {% endfor %}
+                ]
+			}
+		]
+	}
+        window.onload = function() {
+            if (window.innerWidth <= 480) {
+                document.getElementById("canvas").height = "800";
+            }
+            var ctxbar = document.getElementById("canvas").getContext("2d");
+		          window.myBar = new Chart(ctxbar).Bar(barChartData, {
+			     responsive : true
+		          });
+        }
+    </script>
+    <script>
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+
+</html>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Monthly Average Rainfall'
+            },
+            subtitle: {
+                text: 'Source: WorldClimate.com'
+            },
+            xAxis: {
+                categories: [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Rainfall (mm)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Tokyo',
+                data: [49.9, 71.5, 106.4]
+
+            }]
+        });
+    });
+</script>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/js/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="../../static/js/highcharts/modules/exporting.js"></script>
+    <!--[if IE]>
+        <style>
+            #managementMenu {
+                width: 158px;
+            }
+            #restaurantMenu {
+                width: 143;
+            }
+            #manageMenu {
+                width: 124;
+            }
+        </style>
+    <![endif]-->
+    <style>
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            #managementMenu {
+                width: 158px;
+            }
+            #restaurantMenu {
+                width: 143px;
+            }
+            #manageMenu {
+                width: 124px;
+            }
+        }
+    </style>
+    <title>Admin Panel</title>
+</head>
+<body>
+    {% include "admin/adminnav.html" %}
+
+    <div class="container">
+        <h3 style="text-align: center">Total Items Ordered</h3>
+        <div id="bar1" height="290" width="600"></div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#bar1').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: {
+                        ''
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+[
+{% for name in ar %}
+'{{ name }}',
+{% endfor %},
+{% for name in names %}
+'{{ name }}',
+{% endfor %}
+]
+{% if not loop.last %}
+,
+{% endif %}
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Import CSS -->
+        <link rel="stylesheet" href="../static/css/personal/error/errorcss.css">
+        
+        <title>Leaf | Error Page</title>
+        <style>
+            .text {
+                width: 70%;
+                margin: 0 auto;
+                text-align: center;
+            }
+            .img {
+                height: 30vw;
+                min-height: 300px;
+            }
+            @media screen and (max-width: 768px) {
+                .text {
+                    width: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="text">
+            <h1>Error: {{ error }}</h1>
+            <h3>{{ desc }}</h3>
+            <img src="{{ url_for('static', filename = 'images/error/error_robot_final_resize.png') }}" class="img">
+        </div>
+    </body>
+</html>

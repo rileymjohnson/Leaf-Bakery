@@ -1,0 +1,11 @@
+.linkImg {
+    cursor: pointer;
+}
+.price {
+    float: right;
+    font-size: 16px;
+    margin-right: 5px;
+}
+.line {
+    margin-top: 10px;
+}

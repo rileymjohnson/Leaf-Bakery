@@ -1,0 +1,285 @@
+<script type="text/javascript">
+    $(function () {
+
+        var colors = Highcharts.getOptions().colors,
+            categories = ['Appetizers', 'Soups', 'Salads', 'Kids', 'Entrees', 'Breads', 'Drinks', 'Desserts'],
+            data = [{
+                y: {% for appetizer in appetizers %}
+                    {{(100 * (appetizer.mon + appetizer.tue + appetizer.wed + appetizer.thu + appetizer.fri + appetizer.sat + appetizer.sun) / out)}}
+                        {% if not loop.last %}
+                        +
+                        {% endif %}
+                        {% endfor %},
+                color: colors[0],
+                drilldown: {
+                    name: 'Appetizers',
+                    categories: [{% for appetizer in appetizers %}
+                        '{{appetizer.name}}'
+                        {% if not loop.last %}
+                        ,
+                        {% endif %}
+                    {% endfor %}],
+                    data: [{% for appetizer in appetizers %}
+                        {{(100 * (appetizer.mon + appetizer.tue + appetizer.wed + appetizer.thu + appetizer.fri + appetizer.sat + appetizer.sun) / out)}}
+                            {% if not loop.last %}
+                            ,
+                            {% endif %}
+                            {% endfor %}],
+                    color: colors[0]
+                }
+            }, {
+                y: {% for soup in soups %}
+                        {{(100 * (soup.mon + soup.tue + soup.wed + soup.thu + soup.fri + soup.sat + soup.sun) / out)}}
+                        {% if not loop.last %}
+                        +
+                        {% endif %}
+                    {% endfor %},
+                color: colors[1],
+                drilldown: {
+                    name: 'Soups',
+                    categories: [{% for soup in soups %}
+                    '{{soup.name}}'
+                    {% if not loop.last %}
+                    ,
+                    {% endif %}
+                    {% endfor %}],
+                    data: [{% for soup in soups %}
+                    {{(100 * (soup.mon + soup.tue + soup.wed + soup.thu + soup.fri + soup.sat + soup.sun) / out)}}
+                    {% if not loop.last %}
+                    ,
+                    {% endif %}
+                    {% endfor %}],
+                    color: colors[1]
+                }
+            }, {
+                y: {% for salad in salads %}
+                    {{(100 * (salad.mon + salad.tue + salad.wed + salad.thu + salad.fri + salad.sat + salad.sun) / out )}}
+                    {% if not loop.last %}
+                    +
+                    {% endif %}
+                    {% endfor %},
+                color: colors[2],
+                drilldown: {
+                    name: 'Salads',
+                    categories: [{% for salad in salads %}
+                        '{{salad.name}}'
+                        {% if not loop.last %}
+                        ,
+                        {% endif %}
+                        {% endfor %}],
+                    data: [{% for salad in salads %}
+                        {{(100 * (salad.mon + salad.tue + salad.wed + salad.thu + salad.fri + salad.sat + salad.sun) / out)}}
+                        {% if not loop.last %}
+                        ,
+                        {% endif %}
+                        {% endfor %}],
+                    color: colors[2]
+                }
+            }, {
+                y: {% for kid in kids %}
+                    {{(100 * (kid.mon + kid.tue + kid.wed+ + kid.thu + kid.fri + kid.sat + kid.sun) / out)}}
+                    {% if not loop.last %}
+                    +
+                    {% endif %}
+                    {% endfor %},
+                color: colors[3],
+                drilldown: {
+                    name: 'Kids',
+                    categories: [{% for kid in kids %}
+                        '{{kid.name}}'
+                        {% if not loop.last %}
+                        ,
+                        {% endif %}
+                        {% endfor %}],
+                    data: [{% for kid in kids %}
+                    {{(100 * (kid.mon + kid.tue + kid.wed+ + kid.thu + kid.fri + kid.sat + kid.sun) / out)}}
+                    {% if not loop.last %}
+                    ,
+                    {% endif %}
+                    {% endfor %}],
+                    color: colors[3]
+                }
+            }, {
+                y: {% for entree in entrees %}
+                    {{(100 * (entree.mon + entree.tue + entree.wed + entree.thu + entree.fri + entree.sat + entree.sun) / out)}}
+                    {% if not loop.last %}
+                    +
+                    {% endif %}
+                    {% endfor %},
+                color: colors[4],
+                drilldown: {
+                    name: 'Entrees',
+                    categories: [{% for entree in entrees %}
+                        '{{entree.name}}'
+                        {% if not loop.last %}
+                        ,
+                        {% endif %}
+                        {% endfor %}],
+                    data: [{% for entree in entrees %}
+                    {{(100 * (entree.mon + entree.tue + entree.wed + entree.thu + entree.fri + entree.sat + entree.sun) / out)}}
+                    {% if not loop.last %}
+                    ,
+                    {% endif %}
+                    {% endfor %}],
+                    color: colors[4]
+                }
+            }, {
+                y: {% for bread in breads %}
+                {{(100 * (bread.mon + bread.tue + bread.wed + bread.thu + bread.fri + bread.sat + bread.sun) / out)}}
+                {% if not loop.last %}
+                +
+                {% endif %}
+                {% endfor %},
+                color: colors[5],
+                drilldown: {
+                    name: 'Breads',
+                    categories: [{% for bread in breads %}
+                        '{{bread.name}}'
+                        {% if not loop.last %}
+                        ,
+                        {% endif %}
+                        {% endfor %}],
+                    data: [{% for bread in breads %}
+                        {{(100 * (bread.mon + bread.tue + bread.wed + bread.thu + bread.fri + bread.sat + bread.sun) / out)}}
+                        {% if not loop.last %}
+                        ,
+                        {% endif %}
+                        {% endfor %}],
+                    color: colors[5]
+                }
+            }, {
+                y: {% for drink in drinks %}
+                    {{(100 * (drink.mon + drink.tue + drink.wed + drink.thu + drink.fri + drink.sat + drink.sun) / out)}}
+                    {% if not loop.last %}
+                    +
+                    {% endif %}
+                    {% endfor %},
+                color: colors[6],
+                drilldown: {
+                    name: 'Drinks',
+                    categories: [{% for drink in drinks %}
+                        '{{drink.name}}'
+                        {% if not loop.last %}
+                        ,
+                        {% endif %}
+                        {% endfor %}],
+                    data: [{% for drink in drinks %}
+                    {{(100 * (drink.mon + drink.tue + drink.wed + drink.thu + drink.fri + drink.sat + drink.sun) / out)}}
+                    {% if not loop.last %}
+                    ,
+                    {% endif %}
+                    {% endfor %}],
+                    color: colors[6]
+                }
+            }, {
+                y: {% for dessert in desserts %}
+                    {{(100 * (dessert.mon + dessert.tue + dessert.wed + dessert.thu + dessert.fri + dessert.sat + dessert.sun) / out)}}
+                    {% if not loop.last %}
+                    +
+                    {% endif %}
+                    {% endfor %},
+                color: colors[7],
+                drilldown: {
+                    name: 'Desserts',
+                    categories: [{% for dessert in desserts %}
+                    '{{dessert.name}}'
+                    {% if not loop.last %}
+                    ,
+                    {% endif %}
+                    {% endfor %}],
+                    data: [{% for dessert in desserts %}
+                    {{(100 * (dessert.mon + dessert.tue + dessert.wed + dessert.thu + dessert.fri + dessert.sat + dessert.sun) / out)}}
+                    {% if not loop.last %}
+                    ,
+                    {% endif %}
+                    {% endfor %}],
+                    color: colors[7]
+                }
+            }],
+            categoryData = [],
+            itemsData = [],
+            i,
+            j,
+            dataLen = data.length,
+            drillDataLen,
+            brightness;
+
+
+        // Build the data arrays
+        for (i = 0; i < dataLen; i += 1) {
+
+            // add browser data
+            categoryData.push({
+                name: categories[i],
+                y: data[i].y,
+                color: data[i].color
+            });
+
+            // add version data
+            drillDataLen = data[i].drilldown.data.length;
+            for (j = 0; j < drillDataLen; j += 1) {
+                brightness = 0.2 - (j / drillDataLen) / 5;
+                itemsData.push({
+                    name: data[i].drilldown.categories[j],
+                    y: data[i].drilldown.data[j],
+                    color: Highcharts.Color(data[i].color).brighten(brightness).get()
+                });
+            }
+        }
+
+        // Create the chart
+        $('#donutchart').highcharts({
+            chart: {
+                type: 'pie',
+                height: 600,
+                marginTop: -25
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: null
+            },
+            yAxis: {
+                title: {
+                    text: 'Total percent Orders'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    shadow: false,
+                    center: ['50%', '50%']
+                }
+            },
+            tooltip: {
+                valueSuffix: '%',
+                valueDecimals: 2
+            },
+            series: [{
+                name: 'Categories',
+                data: categoryData,
+                size: '60%',
+                dataLabels: {
+                    enabled: false,
+                    formatter: function () {
+                        return this.y > 5 ? this.point.name : null;
+                    },
+                    color: '#ffffff',
+                    distance: -30
+                }
+            }, {
+                name: 'Items',
+                data: itemsData,
+                size: '80%',
+                innerSize: '60%',
+                dataLabels: {
+                    enabled: false,
+                    formatter: function () {
+                        // display only if larger than 1
+                        return this.y > 0 ? '<b>' + this.point.name + ':</b> ' + this.y + '%' : null;
+                    }
+                }
+            }]
+        });
+    });
+</script>

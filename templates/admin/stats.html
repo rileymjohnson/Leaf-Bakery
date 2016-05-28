@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/style.css" />
+    <link type="text/css" rel="stylesheet" href="../../static/admin/css/personal/random.css" />
+    <link rel='shortcut icon' href='../../static/favicon/gear.png' type='image/x-icon'/ >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/chart.js"></script>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    {% include "admin/adminnav.html" %}
+
+    <div class="container">
+        <ul class="collection">
+    <li class="collection-item avatar" onclick="window.location.href = '/admin/stats/donut'">
+      <i class="material-icons circle blue">donut_small</i>
+      <span class="title">Category %</span>
+      <p>Shows the percent of each item bough. <br>
+         Used to find the most popular items in each category.
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+    </li>
+    <li class="collection-item avatar" onclick="window.location.href = '/admin/stats/line'">
+      <i class="material-icons circle">timeline</i>
+      <span class="title">Category /Day</span>
+      <p>Shows on what days people buy different things. <br>
+         Used to find what days you have to order more or less of an item.
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+    </li>
+    <li class="collection-item avatar" onclick="window.location.href = '/admin/stats/bar'">
+      <i class="material-icons circle green">insert_chart</i>
+      <span class="title">Category Stats</span>
+      <p>Shows the total orders of each item <br>
+         Used to find somethings popularity over a long period of time.
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+    </li>
+    <li class="collection-item avatar" onclick="window.location.href = '/admin/stats/stats'">
+      <i class="material-icons circle red">folder</i>
+      <span class="title">Export</span>
+      <p>Export all of the data gathered from the ordering system. <br>
+         It is exported in the csv format which is cross compatible with many programs.
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
+    </li>
+  </ul>
+    </div>
+    <script>
+        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    </script>
+</body>
+
+</html>

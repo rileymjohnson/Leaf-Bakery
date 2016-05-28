@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Leaf</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/awesome.css">
+<link rel="stylesheet" href="../static/css/social.css">
+    <link href="../static/css/personal/style.css" rel="stylesheet">
+    <link rel='shortcut icon' href='../static/favicon/faviconnew.png' type='image/x-icon'/ >
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .review * {
+            color: black;
+        }
+        .review span, .review button, .review a {
+            color: white;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <div id="wrapper">
+        {% include "nav.html" %}
+        <div class="container-fluid">
+            <div class="row" style="margin-top: 70px;">
+                <div class="col-lg-12 text-center">
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body review" style="margin: -2px;">
+                    <h2 class="pull-left" style="margin-top: -5px;">Review your order</h2>
+                    <div class="table-responsive" style="width: 100% !important">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Details</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in items %}
+                            <tr>
+                                <td style="width: 25%">
+                                    <p>{{ i["name"] }}</p>
+                                </td>
+                                <td style="width: 50%">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <label for="amount">Amount:</label>
+                                            <p>{{ i["amount"] }}</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="comment">Additional Notes:</label>
+                                            <p>{{ i["notes"] }}</p>
+                                        </div>
+                                    </form>
+                                </td>
+                                <td style="width:25%">&#36;{{ i["price"] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td><b>Total</b>
+                                </td>
+                                <td></td>
+                                <td><b>&#36;{{ total }}</b>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    </div>
+                    <div class="form-group">
+                        <a type="button" class="btn btn-warning btn-lg pull-left" href="/order">
+                          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit Order
+                        </a>
+                        <a type="button" class="btn btn-primary btn-lg pull-right" href="/orderdetails">
+                          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Continue
+                        </a>
+                        </div>
+                </div>
+            </div>
+            </div>
+            <div id="content">
+		</div>
+		<div id="footer">
+            <p>Copyright © 2015 Leaf Bakery<span class="h"> — 
+                <a class="btn btn-social-icon btn-twitter btn-xs" href="
+https://twitter.com/LeafBakery">
+                <span class="fa fa-twitter"></span>
+              </a>
+                <a class="btn btn-social-icon btn-instagram btn-xs" href="
+https://www.instagram.com/leafglutenfree/">
+                <span class="fa fa-instagram"></span>
+              </a>
+                <a class="btn btn-social-icon btn-facebook btn-xs" href="
+https://www.facebook.com/Leaf-Gluten-free-BakeryRestaurant-494401784066601/?ref=hl">
+                <span class="fa fa-facebook"></span>
+              </a>
+                </span>
+            </p>
+        </div>
+        </div>
+        <script src="../static/js/jquery.js"></script>
+        <script src="../static/js/bootstrap.min.js"></script>
+        <script src="../static/js/fog.js"></script>
+        <script src="../static/js/blur.js"></script>
+        <script src="../static/js/personal/background.js"></script>
+        <script src="../static/js/toast.js"></script>
+</body>
+
+</html>

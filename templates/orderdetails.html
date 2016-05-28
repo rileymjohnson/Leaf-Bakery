@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Leaf</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/awesome.css">
+<link rel="stylesheet" href="../static/css/social.css">
+    <link href="../static/css/personal/style.css" rel="stylesheet">
+    <link rel='shortcut icon' href='../static/favicon/faviconnew.png' type='image/x-icon' />
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body id="body">
+    <div id="wrapper">
+        {% include "nav.html" %}
+        <div class="container-fluid">
+            <div class="row" style="margin-top: 70px;">
+                <div class="col-lg-12 text-center">
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body" style="margin: -2px;">
+                    <form class="form-horizontal" method="post" action="/ordered" id="contact">
+                        <fieldset id="area">
+
+                            <!-- Form Name -->
+                            <legend>Finalize Order</legend>
+                            <div id="form">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Order type:</label>
+                                <div class="col-md-4">
+                                    <select class="form-control" id="option" name="option">
+                                        <option selected disabled value="">Choose Option</option>
+                                        <option value="pick">Pick up</option>
+                                        <option value="deliv">Delivery</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="pickdiv" style="display:none">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput">Your Name:</label>
+                                    <div class="col-md-4">
+                                        <input type="text" placeholder="Your name..." class="form-control" id="pickname" name="pickname">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput">Additional Details:</label>
+                                    <div class="col-md-4">
+                                        <textarea class="form-control" rows="5" name="pickcomments"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput"></label>
+                                    <div class="col-md-4">
+                                        <input type="button" value="Order" class="btn btn-lg btn-primary" onclick="gopick()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="delivdiv" style="display:none">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput">Address:</label>
+                                    <div class="col-md-4">
+                                        <div id="locationField">
+                                            <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text" class="form-control" name="address"></input>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput">Additional Details:</label>
+                                    <div class="col-md-4">
+                                        <textarea class="form-control" rows="5" name="delivcomments"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput"></label>
+                                    <div class="col-md-4">
+                                        <input type="button" value="Order" class="btn btn-lg btn-primary" onclick="godeliv()">
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+        </div>
+        <div id="footer">
+            <p>Copyright © 2015 Leaf Bakery<span class="h"> — 
+                <a class="btn btn-social-icon btn-twitter btn-xs" href="
+https://twitter.com/LeafBakery">
+                <span class="fa fa-twitter"></span>
+              </a>
+                <a class="btn btn-social-icon btn-instagram btn-xs" href="
+https://www.instagram.com/leafglutenfree/">
+                <span class="fa fa-instagram"></span>
+              </a>
+                <a class="btn btn-social-icon btn-facebook btn-xs" href="
+https://www.facebook.com/Leaf-Gluten-free-BakeryRestaurant-494401784066601/?ref=hl">
+                <span class="fa fa-facebook"></span>
+              </a>
+                </span>
+            </p>
+        </div>
+    </div>
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/personal/background.js"></script>
+    <script src="../static/js/card.js"></script>
+    <script src="../static/js/toast.js"></script>
+    <script>
+        function gopick() {
+            if ($("#option").val() && $("#pickname").val()) {
+                document.getElementById("contact").submit()
+            } else {
+                $.toaster("Please enter your name", "Error", "danger");
+            }
+        }
+        function godeliv() {
+            var address=$("#autocomplete").val();
+            if (address.split(" ").length>2) {
+                document.getElementById("contact").submit()
+            } else {
+                $.toaster("Please enter a valid address", "Error", "danger");
+            }
+        }
+    </script>
+    <script>
+        $("#option").change(function() {
+            var value = $(this).val()
+            if (value == "pick") {
+                $("#pickdiv").show();
+                $("#delivdiv").hide();
+            } if (value == "deliv") {
+                $("#pickdiv").hide();
+                $("#delivdiv").show();
+            }
+        });
+    </script>
+    <script>
+        var s = window.innerWidth;
+        
+        if (s >= 1500) {
+            size = 350;
+        }
+        if (s < 1500) {
+            size = 350;
+        }
+        if ( s <= 1200) {
+            size = 250;
+        }
+        if (s <= 991) {
+            size = 350;
+        }
+        if (s <= 400) {
+            size = 300;
+        }
+        if (s <= 340) {
+            size = 150;
+        }
+        new Card({
+            form: document.querySelector('#form'),
+            container: '.card-wrapper',
+            width: size
+        });
+    </script>
+    <script>
+        var placeSearch, autocomplete;
+        var componentForm = {
+            street_number: 'short_name',
+            route: 'long_name',
+            locality: 'long_name',
+            administrative_area_level_1: 'short_name',
+            country: 'long_name',
+            postal_code: 'short_name'
+        };
+
+        function initAutocomplete() {
+            // Create the autocomplete object, restricting the search to geographical
+            // location types.
+            autocomplete = new google.maps.places.Autocomplete(
+                /** @type {!HTMLInputElement} */
+                (document.getElementById('autocomplete')), {
+                    types: ['geocode']
+                });
+
+            // When the user selects an address from the dropdown, populate the address
+            // fields in the form.
+            autocomplete.addListener('place_changed', fillInAddress);
+        }
+
+        // [START region_fillform]
+        function fillInAddress() {
+                // Get the place details from the autocomplete object.
+                var place = autocomplete.getPlace();
+
+                for (var component in componentForm) {
+                    document.getElementById(component).value = '';
+                    document.getElementById(component).disabled = false;
+                }
+
+                // Get each component of the address from the place details
+                // and fill the corresponding field on the form.
+                for (var i = 0; i < place.address_components.length; i++) {
+                    var addressType = place.address_components[i].types[0];
+                    if (componentForm[addressType]) {
+                        var val = place.address_components[i][componentForm[addressType]];
+                        document.getElementById(addressType).value = val;
+                    }
+                }
+            }
+            // [END region_fillform]
+
+        // [START region_geolocation]
+        // Bias the autocomplete object to the user's geographical location,
+        // as supplied by the browser's 'navigator.geolocation' object.
+        function geolocate() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var geolocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        var circle = new google.maps.Circle({
+                            center: geolocation,
+                            radius: position.coords.accuracy
+                        });
+                        autocomplete.setBounds(circle.getBounds());
+                    });
+                }
+            }
+            // [END region_geolocation]
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyoptn6MGYimUf9iiuBw_74fpMvJyV2y4&signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+</body>
+
+</html>
